@@ -1,6 +1,6 @@
 package com.ms.app;
 
-import com.ms.app.model.*;
+import com.ms.app.model.JavaTeacher;
 
 
 public class Main {

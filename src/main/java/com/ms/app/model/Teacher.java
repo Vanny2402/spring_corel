@@ -5,6 +5,7 @@ public abstract  class Teacher {
     private int id;
     private String name;
     private String subject;
+    private String address;
 
     public int getId() {
     	return this.id;
@@ -29,6 +30,13 @@ public abstract  class Teacher {
     	this.subject = subject;
     }
 
+    public void setAddress(String address){
+        this.address=address;
+    }
+
+    public String getAddress(){
+        return this.address;
+    }
     
     //Constructor 
     public Teacher(){}

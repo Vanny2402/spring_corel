@@ -3,7 +3,6 @@ package com.ms.app.model;
 
 public class JavaTeacher extends Teacher {
 
-
     public JavaTeacher() {
         super();
     }
@@ -15,7 +14,7 @@ public class JavaTeacher extends Teacher {
     @Override
     public void outPut() {
 
-        System.out.print(" I am Java Teacher and Id : "+super.getId()+"\n Name: "+super.getName()+"\n Subject : "+super.getSubject());
+        System.out.print(" I am Java Teacher and Id : "+super.getId()+"\n Name: "+super.getName()+"\n Subject : "+super.getSubject()+"\n Address: "+super.getAddress());
     }
     
 }

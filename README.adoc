@@ -13,4 +13,13 @@ D32:FirstBean
     3.Load ClasPathXmlApplicationContext
         -we need to load before use in java class
         -we need to close the context at the end 
-    
+D33:BranGetterSetter Dependency Injection
+    injection:
+        1.Constructur injection
+            Injection to Dependency by constructure (Mostly use)
+        2.Setter injection
+            Injection to Dependency by Setter method 
+            -Model : Conect Database
+            -Repo : Insert update delete
+            -service: validate condiction
+            -controller : call Enpoin 

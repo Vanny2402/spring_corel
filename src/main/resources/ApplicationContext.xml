@@ -5,9 +5,14 @@
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="JavaTeacher" class="com.ms.app.model.JavaTeacher">
+        <constructor-arg ref="teacherService" />
         <property name="id" value="100" />
         <property name="name" value="Testing" />
         <property name="subject" value="C#" />
         <property name="address" value="PP" />
+    </bean>
+
+
+    <bean id="teacherService" class="com.ms.app.services.serviceimpliment.TeacherServiceIml">
     </bean>
 </beans>

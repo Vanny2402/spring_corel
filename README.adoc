@@ -23,3 +23,5 @@ D33:BranGetterSetter Dependency Injection
             -Repo : Insert update delete
             -service: validate condiction
             -controller : call Enpoin 
+D34:Constructor Injection
+    1.

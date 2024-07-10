@@ -10,13 +10,6 @@ public class MainSpring {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         //Retrive Beans
         Teacher javaTeacher=context.getBean("JavaTeacher",Teacher.class);
-        Teacher jv=context.getBean("JavaTeacher",Teacher.class);
-        System.out.println("JV : "+jv.hashCode());
-
-        //Set value to beans
-        // javaTeacher.setId(12);
-        // javaTeacher.setName("Leng Navatra");
-        // javaTeacher.setSubject("JAVA");
         //Output Beans
         javaTeacher.outPut();
         //Close the context

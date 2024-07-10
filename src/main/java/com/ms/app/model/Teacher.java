@@ -47,6 +47,7 @@ public abstract  class Teacher {
         this.subject=subject;
     }
 
+
     //Abanstruct method
     public  abstract void outPut();
 }

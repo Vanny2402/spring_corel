@@ -4,6 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- Define the teacherService bean -->
+    <bean id="teacherService" class="com.ms.app.services.serviceimpliment.TeacherServiceIml">
+    </bean>
+
+    <!-- Define the JavaTeacher bean -->
     <bean id="JavaTeacher" class="com.ms.app.model.JavaTeacher">
         <constructor-arg ref="teacherService" />
         <property name="id" value="100" />
@@ -12,7 +17,20 @@
         <property name="address" value="PP" />
     </bean>
 
+    <!-- Define the pythonteacher bean -->
+    <bean id="pythonTeacher" class="com.ms.app.model.PythonTeacher">
+        <property name="teacherService" ref="teacherService" />
+        <property name="id" value="33" />
+        <property name="name" value="VANNY" />
+        <property name="subject" value="PY" />
+        <property name="address" value="PP" />
+    </bean>
 
-    <bean id="teacherService" class="com.ms.app.services.serviceimpliment.TeacherServiceIml">
+
+    <bean id="jvTeacher" class="com.ms.app.model.JavaTeacher">
+
+        <constructor-arg name="name" value="SONG" />
+        <constructor-arg name="subject" value="Jv" />
+        <constructor-arg name="address" value="PV" />
     </bean>
 </beans>

@@ -17,9 +17,9 @@ public class JavaTeacher extends Teacher {
     public JavaTeacher() {
         super();
     }
-    public JavaTeacher(String name, String subject) {
+    public JavaTeacher(String name, String subject,String address) {
         
-        super(name,subject);
+        super(name,subject,address);
 
     }
     @Override

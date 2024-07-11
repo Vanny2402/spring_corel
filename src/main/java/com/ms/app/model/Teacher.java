@@ -41,10 +41,11 @@ public abstract  class Teacher {
     //Constructor 
     public Teacher(){}
 
-    public Teacher(String name,String subject){
+    public Teacher(String name,String subject,String address){
         this.id=(int)Math.floor(Math.random()*1000);
         this.name=name;
         this.subject=subject;
+        this.address=address;
     }
 
 

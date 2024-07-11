@@ -9,11 +9,20 @@ public class MainSpring {
         //LoadSpringConfiguration file
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         //Retrive Beans
+        Teacher pythonteacher=context.getBean("pythonTeacher",Teacher.class);
         Teacher javaTeacher=context.getBean("JavaTeacher",Teacher.class);
+        Teacher jvteacher =context.getBean("jvTeacher",Teacher.class);
+
+
+
         //Output Beans
+        pythonteacher.outPut();
         javaTeacher.outPut();
+
+        System.out.println("Id : "+jvteacher.getId()+" Name: "+jvteacher.getName()+" subject: "+jvteacher.getSubject()+" Address: "+jvteacher.getAddress());
         //Close the context
         context.close();
+
 
     }
 }

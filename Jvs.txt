@@ -1,0 +1,37 @@
+Array:
+	dataType[] VeraibleName={};
+	int[]numer={2,3,5,6};
+
+    public static void main(String[] args){
+
+        int[][] myNumer={{1,2,3,4},{10,2,3,4}};
+        System.out.println("Hello myNumber: "+myNumer[1][0]);
+    }
+Overloading:
+	-The same name of function but different Parameter
+OOP:
+	-OOP: Object oriented Programming
+	-Nature as Unit 
+	-Class and object 
+	-More faster
+	-No Redundancy
+	-Well Structure
+	-Maintainable 
+	++Class/Object
+		Class : Fruit
+		Object: Apple,Bana,Mango
+Constructor:
+	Default Constructor
+	Parameterized Constructor 
+Access Modifier:
+	To have limitaion access to the class,attribute,cons,method
+	-access Modifier: Fully access
+		-default: The class is only accessible in the same package, This is used when you don't specify a modifier.
+		-public :the class is accessbible by any other class 
+	-Non-access Modifier:can not access  
+	
+
+	
+
+
+	

@@ -58,6 +58,10 @@ D38:BeanLifecycle   Hook
     2.destoy    
         -will not call for Prototype
 
+D39:SpringBoot Starter 
+    1.Module of Spring Framworkd 
+    2.Spring can build as stand a lone, production-grade spring  base applications
+
 
     
     

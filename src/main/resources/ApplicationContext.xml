@@ -28,9 +28,10 @@
 
 
     <bean id="jvTeacher" class="com.ms.app.model.JavaTeacher">
-
-        <constructor-arg name="name" value="SONG" />
-        <constructor-arg name="subject" value="Jv" />
-        <constructor-arg name="address" value="PV" />
+    <!-- Required to have constructor in the parameterize constructor in Class JavaTeacher 
+    Note: can use index ot not is the same-->
+        <constructor-arg name="name" index="0" value="SONG" />
+        <constructor-arg name="subject" index="1" value="Jv" />
+        <constructor-arg name="address" index="2" value="PV" />
     </bean>
 </beans>

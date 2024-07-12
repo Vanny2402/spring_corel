@@ -19,7 +19,7 @@ public class MainSpring {
         pythonteacher.outPut();
         javaTeacher.outPut();
 
-        System.out.println("Id : "+jvteacher.getId()+" Name: "+jvteacher.getName()+" subject: "+jvteacher.getSubject()+" Address: "+jvteacher.getAddress());
+        System.out.println(" Id : "+jvteacher.getId()+"\n Name: "+jvteacher.getName()+"\n subject: "+jvteacher.getSubject()+"\n Address: "+jvteacher.getAddress());
         //Close the context
         context.close();
 

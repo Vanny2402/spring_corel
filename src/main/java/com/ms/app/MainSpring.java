@@ -9,20 +9,28 @@ public class MainSpring {
         //LoadSpringConfiguration file
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         //Retrive Beans
-        Teacher pythonteacher=context.getBean("pythonTeacher",Teacher.class);
-        Teacher javaTeacher=context.getBean("JavaTeacher",Teacher.class);
-        Teacher jvteacher =context.getBean("jvTeacher",Teacher.class);
-        Teacher testApplicationProperty =context.getBean("app_property_Test",Teacher.class);
+        Teacher rusTeacher=context.getBean("rusTeacher",Teacher.class);
+        Teacher rusTeacher2=context.getBean("rusTeacher",Teacher.class);// this both are singleton
+
+        Teacher goTeacher=context.getBean("goTeacher",Teacher.class);
+        Teacher goTeacher2=context.getBean("goTeacher",Teacher.class);// this both are prototype
+
+
+
+        Teacher gpTeacher=context.getBean("goTeacher",Teacher.class);
+
+
+        goTeacher.setId(1009);
+        goTeacher.setName("KOK TOLA");
+        goTeacher.setSubject("Go"); 
+        goTeacher.setAddress("PPPP");
+
+        
 
         //Output Beans
-        pythonteacher.outPut();
-        javaTeacher.outPut();
-        testApplicationProperty.outPut();
-
-        System.out.println(" Id : "+jvteacher.getId()+"\n Name: "+jvteacher.getName()+"\n subject: "+jvteacher.getSubject()+"\n Address: "+jvteacher.getAddress());
+        goTeacher.outPut();
+        goTeacher2.outPut();// The second instant will null all
         //Close the context
         context.close();
-
-
-    }
+        }
 }

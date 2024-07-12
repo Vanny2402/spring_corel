@@ -39,6 +39,24 @@
     </bean>
 
 
+    <bean id="goTeacher" class="com.ms.app.model.GoTeacher" scope ="prototype">
+        <constructor-arg ref="teacherService" />
+        <!-- <property name="id" value="107" />
+        <property name="name" value="KOK SEYHA" />
+        <property name="subject" value="GO" />
+        <property name="address" value="PP" /> -->
+    </bean>
+
+    <bean id="rusTeacher" class="com.ms.app.model.RusTeacher">
+        <constructor-arg ref="teacherService" />
+        <property name="id" value="4454" />
+        <property name="name" value="KING OF J" />
+        <property name="subject" value="RUS" />
+        <property name="address" value="PV" />
+    </bean>
+    
+
+
     <bean id="jvTeacher" class="com.ms.app.model.JavaTeacher">
     <!-- Required to have constructor in the parameterize constructor in Class JavaTeacher 
     Note: can use index ot not is the same-->

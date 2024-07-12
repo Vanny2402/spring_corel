@@ -35,6 +35,16 @@ D36:Spring DL(Property file)
         2.DI
             -Constructor injection
             -Setter Injection
+D37:BeanScopes 
+    1.Cycle of bean , there are 6 type of Bean Cycle 
+        -Singleton
+            -Bean which we have named it then we call that bean to use, now metter how many time we call Instant still keep the same 
+        -Prototype
+            -Not the same to singletone will new instant during call bean 
+        -Request
+        -Application
+        -Websocket 
 
+    
     
 

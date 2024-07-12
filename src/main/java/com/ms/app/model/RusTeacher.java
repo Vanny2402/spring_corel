@@ -22,5 +22,16 @@ public class RusTeacher extends  Teacher{
         this.teacherService.outPut(this);
     }
 
-    
+    public void initMethod(){
+        super.setId((int)Math.floor(Math.random()*1000));
+        super.setName("HENG LONG");
+        super.setSubject("MIS ");
+        super.setAddress("PSV");
+    }
+    public void destroyMethod(){
+        super.setId(0);
+        super.setName("Null");
+        super.setSubject("Null ");
+        super.setAddress("Null"); 
+       }
 }

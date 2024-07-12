@@ -44,6 +44,20 @@ D37:BeanScopes
         -Request
         -Application
         -Websocket 
+D38:BeanLifecycle   Hook
+    ->Container start(Xml file )
+        ->Bean init (create Bean)
+            ->Dependency Inject 
+                ->custome Init() method
+                    ->custom utility method
+                        ->Custome destoy method
+    1.init 
+        -Need to create function name =initMethod
+        -Need to register bean in the classs <bean id="rusTeacher" class="com.ms.app.model.RusTeacher" init-method="initMethod" destroy-method="destroyMethod">
+        -When application run Automatic will run the Init first then destoy at the end 
+    2.destoy    
+        -will not call for Prototype
+
 
     
     

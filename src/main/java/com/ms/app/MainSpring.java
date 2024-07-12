@@ -20,16 +20,18 @@ public class MainSpring {
         Teacher gpTeacher=context.getBean("goTeacher",Teacher.class);
 
 
-        goTeacher.setId(1009);
-        goTeacher.setName("KOK TOLA");
-        goTeacher.setSubject("Go"); 
-        goTeacher.setAddress("PPPP");
+        // goTeacher.setId(1009);
+        // goTeacher.setName("KOK TOLA");
+        // goTeacher.setSubject("Go"); 
+        // goTeacher.setAddress("PPPP");
 
         
 
         //Output Beans
-        goTeacher.outPut();
-        goTeacher2.outPut();// The second instant will null all
+        rusTeacher.outPut();
+        // goTeacher2.outPut();// The second instant will null all
+        // rusTeacher.outPut();
+        // rusTeacher2.outPut();
         //Close the context
         context.close();
         }

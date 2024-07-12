@@ -47,12 +47,8 @@
         <property name="address" value="PP" /> -->
     </bean>
 
-    <bean id="rusTeacher" class="com.ms.app.model.RusTeacher">
+    <bean id="rusTeacher" class="com.ms.app.model.RusTeacher" init-method="initMethod" destroy-method="destroyMethod">
         <constructor-arg ref="teacherService" />
-        <property name="id" value="4454" />
-        <property name="name" value="KING OF J" />
-        <property name="subject" value="RUS" />
-        <property name="address" value="PV" />
     </bean>
     
 

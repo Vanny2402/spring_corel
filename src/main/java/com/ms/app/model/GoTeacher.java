@@ -21,6 +21,4 @@ public class GoTeacher extends  Teacher{
     public void outPut() {
         this.teacherService.outPut(this);
     }
-
-    
 }

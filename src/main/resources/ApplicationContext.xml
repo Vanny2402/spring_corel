@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
-                           http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
     <!-- Define the teacherService bean -->
     <bean id="teacherService" class="com.ms.app.services.serviceimpliment.TeacherServiceIml">
     </bean>
-
+    <!-- Load the property file application.property -->
+    <context:property-placeholder location="classpath:application.properties" />
     <!-- Define the JavaTeacher bean -->
-    <bean id="JavaTeacher" class="com.ms.app.model.JavaTeacher">
+    <bean id="JavaTeacher" class="com.ms.app.model.JavaTeacher"> 
         <constructor-arg ref="teacherService" />
         <property name="id" value="100" />
         <property name="name" value="Testing" />
@@ -24,6 +27,15 @@
         <property name="name" value="VANNY" />
         <property name="subject" value="PY" />
         <property name="address" value="PP" />
+    </bean>
+
+    <!-- Initailize value from Application property -->
+    <bean id="app_property_Test" class="com.ms.app.model.PythonTeacher">
+        <property name="teacherService" ref="teacherService" />
+        <property name="id" value="${app.teacher.id}" />
+        <property name="name" value="${app.teacher.name}" />
+        <property name="subject" value="${app.teacher.subject}" />
+        <property name="address" value="${app.teacher.address}" />
     </bean>
 
 

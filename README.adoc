@@ -28,6 +28,13 @@ D35:Setter Injection
     1.Crate contructor in class or can confit in the config file 
     2.Config the Dependency in the config file 
     -Bean default as Singleton -> can init new object ->Instant only one 
-    
+D36:Spring DL(Property file)
+    1.Reviewing 
+        1.IOC 
+            -
+        2.DI
+            -Constructor injection
+            -Setter Injection
+
     
 

@@ -12,12 +12,12 @@ public class MainSpring {
         Teacher pythonteacher=context.getBean("pythonTeacher",Teacher.class);
         Teacher javaTeacher=context.getBean("JavaTeacher",Teacher.class);
         Teacher jvteacher =context.getBean("jvTeacher",Teacher.class);
-
-
+        Teacher testApplicationProperty =context.getBean("app_property_Test",Teacher.class);
 
         //Output Beans
         pythonteacher.outPut();
         javaTeacher.outPut();
+        testApplicationProperty.outPut();
 
         System.out.println(" Id : "+jvteacher.getId()+"\n Name: "+jvteacher.getName()+"\n subject: "+jvteacher.getSubject()+"\n Address: "+jvteacher.getAddress());
         //Close the context

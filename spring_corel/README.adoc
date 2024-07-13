@@ -62,7 +62,9 @@ D39:SpringBoot Starter
     1.Module of Spring Framworkd 
     2.Spring can build as stand a lone, production-grade spring  base applications
 
-
+D40: SpringbootFirst
+	-gradle clean build : Rebuild
+	-gradlew bootRun: run the spring gradle prject
     
     
 

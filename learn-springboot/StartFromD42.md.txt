@@ -13,4 +13,22 @@ D42: Springboot Architecture
 		-The layer handle the CRUD(Create,Read,Update,Delete) operation
 		-->Model
 --> There is not code today
-	
+D43:Controller 
+	1.Servlet:
+		-Teachnology to recieve the request and respond 
+		-Http request: it's the protocol 
+			-Get
+			-Post
+			-Head
+			-Trace
+			-put
+			-Delete
+			-Option 		
+	2.Controller 	
+		-Handle Income request 
+		-Respond to the request 
+		-Required annotaion @Controller(MVC)/@RestController(RestAPI: it has the @Restcontroller nnd @ResponseBOdy already) 
+		-@ResponseBody:
+			-Retrieve Data from Java Object to Generate to be Json to Http response 
+		-@RequestBody : 
+			-Retrieve Data from HTTP request to Generate to be Java object 

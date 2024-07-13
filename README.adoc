@@ -64,7 +64,15 @@ D39:SpringBoot Starter
 
 D40: SpringbootFirst
 	-gradle clean build : Rebuild
-	-gradlew bootRun: run the spring gradle prject
-    
-    
-
+	-gradlew bootRun: run the spring gradle project
+	-Spring Structure:
+		-Gradle : During build it will read this file first to build 
+		-Build.gradle: add dependency
+		-gradlew:For Max use to  build 
+		-gradlew.bat: for window use to build
+		-Stetting.gradle: To set default of the project 
+		
+		
+	
+		
+		

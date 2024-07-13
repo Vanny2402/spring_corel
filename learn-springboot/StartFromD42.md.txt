@@ -1,0 +1,16 @@
+
+D42: Springboot Architecture 
+	1.Presentation Layer:
+		-Handle Http request translate from Json parameter to object and Validate request then pass it to Business layer 
+		-->Controller 
+	2.Business Layer:
+		-The layer Handle the business logic 
+		-->Service 
+	3.Persistence Layer:
+		-The layer handle translate from business to Database Row 
+		-->Repository 
+	4.Database Layer: 
+		-The layer handle the CRUD(Create,Read,Update,Delete) operation
+		-->Model
+--> There is not code today
+	

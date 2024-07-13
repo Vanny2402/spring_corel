@@ -13,12 +13,12 @@ public class SampleController {
 		return "Hello marry";
 	}
 	
-	@GetMapping("/inside")
+	@GetMapping({"/inside","/in"})
 	public String getInsideApplicatin() {
 		return "Hi This is Inside the Application";
 	}
 	
-	@GetMapping("/outside")
+	@GetMapping("/Sample/outside")
 	public String getOutsideApplicatin() {
 		return "Hi This is outside the Application";
 	}

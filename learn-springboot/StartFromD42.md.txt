@@ -43,7 +43,7 @@ D54:JPA Entity
 	-Require 1 class
 	-Require Annotation @Enity meant it's Table in database 
 	-All Jpa required ID (@ID)
-	-Generated value(auto(Auto increment),Table,Sequence(Specific number),Identity(Increment))
+	-Generated value(auto(Auto increment ),Table,Sequence(Specific number),Identity(Increment))
 	-
 	
 	

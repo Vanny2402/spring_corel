@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: learn-springboot
+server:
+  port: 8090

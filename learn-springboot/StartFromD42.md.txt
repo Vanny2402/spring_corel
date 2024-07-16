@@ -32,3 +32,13 @@ D43:Controller
 			-Retrieve Data from Java Object to Generate to be Json to Http response 
 		-@RequestBody : 
 			-Retrieve Data from HTTP request to Generate to be Java object 
+					
+D53:JPA and Hibernate (Java persistence API)
+	-The one of the framework of Java
+	-Jpa and hibernate use only relational DB
+	-Help for sql statement  
+	-Hibernate Fram work Of java ORM 
+	-Hibernate is a standard implementation of JPA specification 
+	
+	
+	

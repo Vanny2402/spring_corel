@@ -30,7 +30,7 @@ public class StudentEntity {
 	@Column(name="l_name",length = 30,nullable =true)
 	private String lastName;
 	
-//	@Column(name="dob",columnDefinition ="timestamptz" )
+	
 	@Column(name="dob")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dob;
@@ -39,6 +39,9 @@ public class StudentEntity {
 	@Enumerated(EnumType.STRING)
 	private GenerEnum gender;
 	
+	
+	@Column(name = "subject",columnDefinition ="varchar (150) default 'MIS'")
+	private String subject;
 	
 	
 	@Transient

@@ -44,6 +44,15 @@ D54:JPA Entity
 	-Require Annotation @Enity meant it's Table in database 
 	-All Jpa required ID (@ID)
 	-Generated value(auto(Auto increment ),Table,Sequence(Specific number),Identity(Increment))
-	-
+D55:JPA Table 
+	- @Table annotation:
+D56:Column Annotation 
+	-Agument(name,lenght,nullable,unique)
+		-name: Set the collumn name
+		-lenght:lenght of the column 
+		-Nullable:to identify if can accept null value or not 
+		-Unique: to set the unique of value
+		
+		
 	
 	

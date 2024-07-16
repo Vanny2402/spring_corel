@@ -1,5 +1,6 @@
 package com.vn.learn_springboot.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,12 +8,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="students",schema = "student")
+@Table(name="students")
 public class StudentEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="stu_id")
 	private Long id;
+	
+	
+	@Column(name="stu_name",length = 30,nullable =true,unique = true)
 	private String name;
 	
 	

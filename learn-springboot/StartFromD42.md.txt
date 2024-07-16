@@ -52,7 +52,12 @@ D56:Column Annotation
 		-lenght:lenght of the column 
 		-Nullable:to identify if can accept null value or not 
 		-Unique: to set the unique of value
-		
-		
+D57: JPA TransientandTemporal
+	-To store temporary data 
+	-store data in memory
+	Temporal: to work with type of date 
+	
+	
+	
 	
 	

@@ -2,8 +2,12 @@ package com.vn.learn_springboot.model.entity;
 
 import java.util.Date;
 
+import com.vn.learn_springboot.constant.enums.GenerEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,6 +34,11 @@ public class StudentEntity {
 	@Column(name="dob")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dob;
+	
+	
+	@Enumerated(EnumType.STRING)
+	private GenerEnum gender;
+	
 	
 	
 	@Transient

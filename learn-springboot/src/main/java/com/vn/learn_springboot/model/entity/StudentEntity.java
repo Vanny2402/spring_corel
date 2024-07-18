@@ -72,10 +72,6 @@ public class StudentEntity {
 	
 
 	
-	
-	
-	
-	
 	public void setId(Long id) {
 		this.id=id;
 	}

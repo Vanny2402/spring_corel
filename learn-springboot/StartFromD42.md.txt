@@ -56,6 +56,8 @@ D57: JPA TransientandTemporal
 	-To store temporary data 
 	-store data in memory
 	Temporal: to work with type of date 
+D60: Lazy and Eager 
+
 	
 	
 	

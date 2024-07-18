@@ -1,6 +1,9 @@
 package com.vn.learn_springboot.model.entity;
 
 import java.util.Date;
+import java.util.Objects;
+
+import org.hibernate.Hibernate;
 
 import com.vn.learn_springboot.constant.enums.GenerEnum;
 
@@ -78,6 +81,20 @@ public class StudentEntity {
 	public Long getId(){
 
 		return this.id;
+	}
+	
+	
+	@Override
+	public boolean equals(Object o) {
+		if(this==o) return true;
+		if(o==null || Hibernate.getClass(this)!=Hibernate.getClass(o)) return false;
+		StudentEntity that=(StudentEntity) o;
+		return id!=null && Objects.equals(id,that.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
 	}
 	
 }

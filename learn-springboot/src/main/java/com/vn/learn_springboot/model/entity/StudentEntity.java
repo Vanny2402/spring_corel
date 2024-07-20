@@ -6,8 +6,10 @@ import java.util.Objects;
 import org.hibernate.Hibernate;
 
 import com.vn.learn_springboot.constant.enums.GenerEnum;
+import com.vn.learn_springboot.embadable.ContactIinfo;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -73,8 +75,6 @@ public class StudentEntity {
 	}
 	
 	
-
-	
 	public void setId(Long id) {
 		this.id=id;
 	}
@@ -84,6 +84,10 @@ public class StudentEntity {
 	}
 	
 	
+	@Embedded
+	private ContactIinfo contactStudent;
+	
+
 	@Override
 	public boolean equals(Object o) {
 		if(this==o) return true;

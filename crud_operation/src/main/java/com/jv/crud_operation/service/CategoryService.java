@@ -2,6 +2,7 @@ package com.jv.crud_operation.service;
 
 import org.springframework.stereotype.Service;
 
+import com.jv.crud_operation.exception.AlreadyExistException;
 import com.jv.crud_operation.model.entity.CategoryEntity;
 import com.jv.crud_operation.model.entity.reuest.CategoryRequest;
 import com.jv.crud_operation.repository.CategoryRepository;
@@ -18,12 +19,19 @@ public class CategoryService {
 		
 		//Prepare request
 		CategoryEntity data=request.toEntity();
-		
 		//check name from reuest if exist in db or not 
-		
 		if(this.categoryRepository.existsByName(data.getName())) {
-			throw new Exception("Category name already exist! ");
+//			throw new Exception("Category name already exist! ");
+			throw new AlreadyExistException("Category name already exist! ");
 		}
-		return categoryRepository.save(request.toEntity());
+		
+		//Save Data 
+		try {
+			return categoryRepository.save(request.toEntity());
+		} catch (Exception ex) {
+
+			throw new Exception(ex);
+		}
+		
 	}
 }

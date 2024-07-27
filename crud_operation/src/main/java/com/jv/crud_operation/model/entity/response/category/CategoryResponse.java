@@ -1,4 +1,4 @@
-package com.jv.crud_operation.model.entity.response;
+package com.jv.crud_operation.model.entity.response.category;
 
 import java.io.Serializable;
 

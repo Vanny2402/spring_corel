@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jv.crud_operation.model.entity.CategoryEntity;
-import com.jv.crud_operation.model.entity.response.CategoryResponse;
+import com.jv.crud_operation.model.entity.response.category.CategoryResponse;
 import com.jv.crud_operation.model.entity.reuest.CategoryRequest;
 import com.jv.crud_operation.service.CategoryService;
 

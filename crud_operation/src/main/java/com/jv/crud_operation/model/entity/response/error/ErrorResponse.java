@@ -2,7 +2,7 @@ package com.jv.crud_operation.model.entity.response.error;
 
 import java.io.Serializable;
 
-public class ErrorResponse implements Serializable {
+public class ErrorResponse implements Serializable{
 
 	private String message;
 	private Short status;

@@ -1,7 +1,9 @@
 package com.jv.crud_operation.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +26,12 @@ public class CategoryController {
 	@PostMapping("")
 	public ResponseEntity<CategoryResponse>creat(@RequestBody CategoryRequest request) throws Exception{
 		CategoryEntity category=this.categoryService.create(request);
+		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<CategoryResponse> update(@PathVariable Long id,@RequestBody CategoryRequest request) throws Exception{
+		CategoryEntity category=this.categoryService.updage(id, request);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
 }

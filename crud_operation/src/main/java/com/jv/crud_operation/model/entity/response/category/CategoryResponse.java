@@ -16,6 +16,7 @@ public class CategoryResponse implements Serializable {
 		return name;
 	}
 	
+	
 	public CategoryResponse(String name, String description) {
 		this.name=name;
 		this.description=description;

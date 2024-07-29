@@ -1,6 +1,11 @@
 package com.jv.crud_operation.controller;
 
+import java.util.List;
+
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -8,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.CategoryEntity;
 import com.jv.crud_operation.model.entity.response.category.CategoryResponse;
 import com.jv.crud_operation.model.entity.reuest.CategoryRequest;
@@ -30,8 +36,29 @@ public class CategoryController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoryResponse> update(@PathVariable Long id,@RequestBody CategoryRequest request) throws Exception{
-		CategoryEntity category=this.categoryService.updage(id, request);
+	public ResponseEntity<CategoryResponse> update(@PathVariable Long id,@RequestBody CategoryRequest request) throws NotFoundException{
+		
+		CategoryEntity category=this.categoryService.update(id, request);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
+	
+	@GetMapping("")
+	public ResponseEntity<List<CategoryResponse>> findAll(){
+		List<CategoryResponse> category=this.categoryService.findAll().stream().map(CategoryResponse::fromEntity).toList();
+		return ResponseEntity.ok(category);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<CategoryResponse> findOne(@PathVariable Long id) throws NotFoundException{
+		CategoryEntity category=this.categoryService.findOne(id);
+		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<CategoryResponse> delete(@PathVariable Long id) throws NotFoundException{
+		CategoryEntity category=categoryService.delete(id);
+		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
+		
+	}
+	
 }

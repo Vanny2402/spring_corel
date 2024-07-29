@@ -1,6 +1,6 @@
 package com.jv.crud_operation.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,6 @@ public class CategoryService {
 	}
 
 	public CategoryEntity create(CategoryRequest request) throws Exception {
-		
 		//Prepare request
 		CategoryEntity data=request.toEntity();
 		//check name from reuest if exist in db or not 
@@ -38,29 +37,45 @@ public class CategoryService {
 		
 	}
 	
-	public CategoryEntity updage(Long id,CategoryRequest request) throws Exception {
-		
-		//Check if id exist or not 
-		CategoryEntity foundData=this.categoryRepository.findById(id).orElseThrow(()-> new 
-				NotFoundException("Category not found!"));
-		//Prepare Date To Updae
-		//#1
-//		foundData.setName(request.getName());
-//		foundData.setDescription(request.getDescription());
-		
-		//#2
-		foundData.setName(request.getName()==null ?foundData.getName():request.getName() );
-		foundData.setDescription(request.getDescription()==null ?foundData.getDescription():request.getDescription());
-		
-		//Update data
-		try {
-			return this.categoryRepository.save(foundData);
-		} catch (Exception ex) {
-			throw new Exception(ex);
-		}
-
-	
+	public CategoryEntity update(Long id,CategoryRequest request) throws NotFoundException {
+		//#1 To find if Category exist or not
+		CategoryEntity dataFilter=categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("Category is not exsit"));
+		//#2 Update data
+//		dataFilter.setName(request.getName());
+//		dataFilter.setDescription(request.getDescription());
+		dataFilter.setName(request.getName()==null? dataFilter.getName():request.getName());
+		dataFilter.setDescription(request.getDescription()==null? dataFilter.getDescription():request.getDescription());
+		return this.categoryRepository.save(dataFilter);
 	}
+	
+	
+	public List<CategoryEntity> findAll(){
+		return this.categoryRepository.findAll();
+	}
+	
+	public CategoryEntity findOne(Long id) throws NotFoundException {
+		return this.categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("This is category is not exist"));
+	}
+	
+	public CategoryEntity delete(Long id) throws NotFoundException {
+		//#1 To find Category
+		CategoryEntity category=findOne(id);
+		this.categoryRepository.deleteById(category.getId());
+		return category;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

@@ -1,7 +1,10 @@
 package com.jv.crud_operation.model.entity;
 
+import com.jv.crud_operation.model.entity.listener.CategoryEntityListener;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,6 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="category")
+@EntityListeners(CategoryEntityListener.class)
 public class CategoryEntity {
 	
 	@Id
@@ -44,6 +48,5 @@ public class CategoryEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 
 }

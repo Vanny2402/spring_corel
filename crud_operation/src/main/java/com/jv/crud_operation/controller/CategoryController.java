@@ -43,22 +43,22 @@ public class CategoryController {
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<List<CategoryResponse>> findAll(){
-		List<CategoryResponse> category=this.categoryService.findAll().stream().map(CategoryResponse::fromEntity).toList();
+	public ResponseEntity<List<CategoryResponse>> getAll(){
+		List<CategoryResponse> category=this.categoryService.getAll().stream().map(CategoryResponse::fromEntity).toList();
 		return ResponseEntity.ok(category);
 	}
 	
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<CategoryResponse> findOne(@PathVariable Long id) throws NotFoundException{
-		CategoryEntity category=this.categoryService.findOne(id);
+	public ResponseEntity<CategoryResponse> getOne(@PathVariable Long id) throws NotFoundException{
+		CategoryEntity category=this.categoryService.getOne(id);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
+	
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<CategoryResponse> delete(@PathVariable Long id) throws NotFoundException{
-		CategoryEntity category=categoryService.delete(id);
+		CategoryEntity category=this.categoryService.delete(id);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
-		
 	}
-	
 }

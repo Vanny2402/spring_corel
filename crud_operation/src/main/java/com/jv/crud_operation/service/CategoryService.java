@@ -47,35 +47,28 @@ public class CategoryService {
 		dataFilter.setDescription(request.getDescription()==null? dataFilter.getDescription():request.getDescription());
 		return this.categoryRepository.save(dataFilter);
 	}
+
 	
-	
-	public List<CategoryEntity> findAll(){
-		return this.categoryRepository.findAll();
+	public List<CategoryEntity> getAll() {
+	    return	this.categoryRepository.findAll();
 	}
 	
-	public CategoryEntity findOne(Long id) throws NotFoundException {
-		return this.categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("This is category is not exist"));
+	
+	public CategoryEntity getOne(Long id) throws NotFoundException {
+		// #1 to check if Category exist or not 
+		CategoryEntity getCategory=this.categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("This id is not exist in  system!"));
+		// #2 get data and return to the controller 
+		return getCategory;
 	}
+	
 	
 	public CategoryEntity delete(Long id) throws NotFoundException {
-		//#1 To find Category
-		CategoryEntity category=findOne(id);
-		this.categoryRepository.deleteById(category.getId());
+		// #1 To check if category is exist in system or not
+		CategoryEntity category=getOne(id);
+		// #2 Commit to delete
+		this.categoryRepository.deleteById(id);
 		return category;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

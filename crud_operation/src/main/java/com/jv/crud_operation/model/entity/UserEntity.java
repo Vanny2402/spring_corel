@@ -5,12 +5,36 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class UserEntity {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(length = 30,nullable = false)
+	private String username;
+	
+	@OneToOne
+	@JoinColumn(name="addressId")
+	private AddressEntity address;
+	
+	
+	public AddressEntity getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
+	}
+
+
+	
 	public Long getId() {
 		return id;
 	}
@@ -19,19 +43,14 @@ public class UserEntity {
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setName(String name) {
-		this.username = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(nullable = false,length = 30)
-	private String username;
+
 	
 }

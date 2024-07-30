@@ -7,6 +7,5 @@ import com.jv.crud_operation.model.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-
 	boolean existsByUsername(String username);
 }

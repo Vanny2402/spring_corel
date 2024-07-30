@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,19 +16,16 @@ public class AddressEntity {
 	private Long id;
 	
 	@Column(length = 100,nullable = false)
-	private String address;
+	private String village;
 	
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
-	@OneToOne
-	@JoinColumn(name="userId")
-	private UserEntity user;
+	@Column(length = 100,nullable = false)
+	private String commune;
+	
+	@Column(length = 100,nullable = false)
+	private String destrict;
+	
+	@Column(length = 100,nullable = false)
+	private String province;
 	
 	
 	public Long getId() {
@@ -41,12 +36,36 @@ public class AddressEntity {
 		this.id = id;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getVillage() {
+		return village;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setVillage(String village) {
+		this.village = village;
+	}
+
+	public String getCommune() {
+		return commune;
+	}
+
+	public void setCommune(String commune) {
+		this.commune = commune;
+	}
+
+	public String getDestrict() {
+		return destrict;
+	}
+
+	public void setDestrict(String destrict) {
+		this.destrict = destrict;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
 

@@ -1,25 +1,49 @@
 package com.jv.crud_operation.model.entity.reuest.address;
 
-import java.io.Serializable;
-
 import com.jv.crud_operation.model.entity.AddressEntity;
-import com.jv.crud_operation.model.entity.UserEntity;
 
-public class AddressEntityRequest implements Serializable{
-
-	private String address;
-	public String getAddress() {
-		return address;
+public class AddressEntityRequest {
+	private String village;
+	private String commune;
+	private String destrict;
+	private String provice;
+	
+	public String getVillage() {
+		return village;
 	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	public void setVillage(String village) {
+		this.village = village;
 	}
-
-	public AddressEntity toEntity(UserEntity parentEntity) {
+	public String getCommune() {
+		return commune;
+	}
+	public void setCommune(String commune) {
+		this.commune = commune;
+	}
+	public String getDestrict() {
+		return destrict;
+	}
+	public void setDestrict(String destrict) {
+		this.destrict = destrict;
+	}
+	public String getProvice() {
+		return provice;
+	}
+	public void setProvice(String provice) {
+		this.provice = provice;
+	}
+	
+	
+	public AddressEntity toEntity() {
 		AddressEntity address=new AddressEntity();
-		address.setAddress(this.getAddress());
-		address.setUser(parentEntity);
+		address.setVillage(this.getVillage());
+		address.setCommune(this.getCommune());
+		address.setDestrict(this.getDestrict());
+		address.setProvince(this.getProvice());
+		
 		return address;
 	}
+	
+	
+	
 }

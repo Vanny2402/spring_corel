@@ -20,11 +20,11 @@ public class UserEntity {
 	}
 
 	public String getName() {
-		return name;
+		return username;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.username = name;
 	}
 
 	@Id
@@ -32,6 +32,6 @@ public class UserEntity {
 	private Long id;
 	
 	@Column(nullable = false,length = 30)
-	private String name;
+	private String username;
 	
 }

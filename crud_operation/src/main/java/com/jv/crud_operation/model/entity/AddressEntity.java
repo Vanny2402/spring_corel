@@ -20,6 +20,14 @@ public class AddressEntity {
 	@Column(length = 100,nullable = false)
 	private String address;
 	
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
 	@OneToOne
 	@JoinColumn(name="userId")
 	private UserEntity user;

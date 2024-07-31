@@ -1,10 +1,9 @@
-package com.jv.crud_operation.model.entity.reuest.user;
+package com.jv.crud_operation.model.entity.response;
 
 import com.jv.crud_operation.model.entity.AddressEntity;
 import com.jv.crud_operation.model.entity.UserEntity;
 
-public class UserEntityRequest {
-
+public class UserEntityResponse {
 	
 	private String username;
 	private AddressEntity address;
@@ -22,13 +21,10 @@ public class UserEntityRequest {
 		this.address = address;
 	}
 
-	public UserEntity toEntity() {
+	public UserEntityResponse fromEntity() {
 		UserEntity userEntity=new UserEntity();
 		
-		userEntity.setUsername(this.getUsername());
-		userEntity.setAddress(this.getAddress());
-		
-		return userEntity;
+		return null;
 	}
 	
 }

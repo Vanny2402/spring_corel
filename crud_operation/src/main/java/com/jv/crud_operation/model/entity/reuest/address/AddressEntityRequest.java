@@ -40,7 +40,6 @@ public class AddressEntityRequest {
 		address.setCommune(this.getCommune());
 		address.setDestrict(this.getDestrict());
 		address.setProvince(this.getProvice());
-		
 		return address;
 	}
 	

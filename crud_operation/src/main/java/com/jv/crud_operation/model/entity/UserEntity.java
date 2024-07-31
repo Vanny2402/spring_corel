@@ -10,7 +10,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class UserEntity {
 
 	@Id
@@ -34,7 +34,6 @@ public class UserEntity {
 	}
 
 
-	
 	public Long getId() {
 		return id;
 	}

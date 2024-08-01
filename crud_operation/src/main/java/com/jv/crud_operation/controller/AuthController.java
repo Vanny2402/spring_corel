@@ -25,9 +25,7 @@ public class AuthController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<UserEntity> register(@RequestBody UserEntityRequuest request) throws Exception{
-		
 		UserEntity user= userService.rgister(request);
-		
 		return ResponseEntity.ok(user);
 	}
 }

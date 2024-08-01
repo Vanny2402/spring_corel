@@ -33,7 +33,6 @@ public class AddressEntityRequest {
 		this.provice = provice;
 	}
 	
-	
 	public AddressEntity toEntity() {
 		AddressEntity address=new AddressEntity();
 		address.setVillage(this.getVillage());

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jv.crud_operation.model.entity.UserEntity;
+import com.jv.crud_operation.model.entity.response.user.UserRegisterResponse;
 import com.jv.crud_operation.model.entity.reuest.user.UserEntityRequuest;
 import com.jv.crud_operation.service.UserService;
 
@@ -24,8 +25,8 @@ public class AuthController {
 
 	
 	@PostMapping("/register")
-	public ResponseEntity<UserEntity> register(@RequestBody UserEntityRequuest request) throws Exception{
-		UserEntity user= userService.rgister(request);
-		return ResponseEntity.ok(user);
+	public ResponseEntity<UserRegisterResponse> register(@RequestBody UserEntityRequuest request) throws Exception{
+		UserEntity user= userService.register(request);
+		return ResponseEntity.ok(UserRegisterResponse.fromEntity(user));
 	}
 }

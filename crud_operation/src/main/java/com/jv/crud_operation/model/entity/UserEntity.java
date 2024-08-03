@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,12 +20,20 @@ public class UserEntity {
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setName(String name) {
+	public void setUsername(String name) {
 		this.username = name;
+	}
+	
+	public AddressEntity getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
 	}
 
 	@Id
@@ -33,5 +42,8 @@ public class UserEntity {
 	
 	@Column(nullable = false,length = 30)
 	private String username;
+
+	@OneToOne(mappedBy = "user")
+	private AddressEntity address;
 	
 }

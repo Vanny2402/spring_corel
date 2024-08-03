@@ -44,7 +44,7 @@ public class UserEntity {
 	@Column(nullable = false,length = 30)
 	private String username;
 
-	@OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "user")
 	private AddressEntity address;
 	
 }

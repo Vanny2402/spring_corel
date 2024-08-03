@@ -7,15 +7,6 @@ import com.jv.crud_operation.model.entity.reuest.address.AddressEntityRequest;
 
 public class UserEntityRequuest implements Serializable {
 
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
-//	private Long id; 
-	
 	public String getUsername() {
 		return username;
 	}

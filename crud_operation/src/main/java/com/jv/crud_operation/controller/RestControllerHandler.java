@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
+import com.jv.crud_operation.exception.BadRequestException;
 import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.response.error.ErrorResponse;
 
@@ -32,5 +33,13 @@ public class RestControllerHandler {
 		ErrorResponse err=new ErrorResponse(ex.getMessage(),(short) 404);
 		return ResponseEntity.status(404).body(err);
 	}
+	
+
+	@ExceptionHandler(BadRequestException.class)
+	public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException ex){
+		ErrorResponse err=new ErrorResponse(ex.getMessage(),(short) 400);
+		return ResponseEntity.status(400).body(err);
+	}
+	
 
 }

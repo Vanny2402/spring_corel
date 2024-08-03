@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
+import com.jv.crud_operation.exception.BadRequestException;
 import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.AddressEntity;
 import com.jv.crud_operation.model.entity.UserEntity;
 import com.jv.crud_operation.model.entity.reuest.user.UserEntityRequuest;
+import com.jv.crud_operation.model.entity.reuest.user.UserLoginRequest;
 import com.jv.crud_operation.repository.AddressRepository;
 import com.jv.crud_operation.repository.UserRepository;
 
@@ -50,9 +52,6 @@ public class UserService {
 		}
 	}
 	
-	
-	
-	
 	public List<UserEntity> findAll(){
 		return this.userRepository.findAll();
 	}
@@ -60,5 +59,15 @@ public class UserService {
 	public UserEntity findOne(Long id) throws NotFoundException {
 		return this.userRepository.findById(id).orElseThrow(()-> new NotFoundException("This user is not Found"));
 	}
+	
+	public UserEntity login(UserLoginRequest request) throws BadRequestException {
+		return userRepository.findByUsername(request.getUsername()).orElseThrow(()-> new BadRequestException("Invalid Username"));
+	}
 
 }
+
+
+
+
+
+

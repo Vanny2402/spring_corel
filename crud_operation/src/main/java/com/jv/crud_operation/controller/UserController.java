@@ -5,12 +5,17 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jv.crud_operation.exception.BadRequestException;
 import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.UserEntity;
+import com.jv.crud_operation.model.entity.response.user.UserLoginResponse;
 import com.jv.crud_operation.model.entity.response.user.UserRegisterResponse;
+import com.jv.crud_operation.model.entity.reuest.user.UserLoginRequest;
 import com.jv.crud_operation.service.UserService;
 
 @RestController
@@ -21,14 +26,12 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-
 	
 	@GetMapping
 	public ResponseEntity<List<UserRegisterResponse>>findAll(){
 		
 		List<UserRegisterResponse> data=userService.findAll().stream().map(UserRegisterResponse::fromEntity).toList();
 		return ResponseEntity.ok(data);
-		
 	}
 	
 	@GetMapping("/{id}")
@@ -37,4 +40,11 @@ public class UserController {
 		
 		return ResponseEntity.ok(UserRegisterResponse.fromEntity(data));
 	} 
+
+	@PostMapping("/login")
+	public ResponseEntity<UserLoginResponse>login(@RequestBody UserLoginRequest request) throws BadRequestException{
+		UserEntity data=this.userService.login(request);
+		return ResponseEntity.ok(UserLoginResponse.fromEntity(data));
+		
+	}
 }

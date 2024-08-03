@@ -2,6 +2,7 @@ package com.jv.crud_operation.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,7 +44,7 @@ public class UserEntity {
 	@Column(nullable = false,length = 30)
 	private String username;
 
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
 	private AddressEntity address;
 	
 }

@@ -1,11 +1,11 @@
 package com.jv.crud_operation.controller;
 
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +15,7 @@ import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.UserEntity;
 import com.jv.crud_operation.model.entity.response.user.UserLoginResponse;
 import com.jv.crud_operation.model.entity.response.user.UserRegisterResponse;
+import com.jv.crud_operation.model.entity.reuest.user.UserEntityRequuest;
 import com.jv.crud_operation.model.entity.reuest.user.UserLoginRequest;
 import com.jv.crud_operation.service.UserService;
 
@@ -46,5 +47,12 @@ public class UserController {
 		UserEntity data=this.userService.login(request);
 		return ResponseEntity.ok(UserLoginResponse.fromEntity(data));
 		
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<UserRegisterResponse> update(@PathVariable Long id,@RequestBody UserEntityRequuest request) throws Exception{
+		
+		UserEntity data =userService.update(id, request);
+		return ResponseEntity.ok(UserRegisterResponse.fromEntity(data));
 	}
 }

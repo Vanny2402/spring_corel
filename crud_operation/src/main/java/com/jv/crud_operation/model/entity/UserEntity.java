@@ -1,5 +1,6 @@
 package com.jv.crud_operation.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +13,17 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="users")
 public class UserEntity {
+	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(nullable = false,length = 30)
+	private String username;
+
+	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+	private AddressEntity address;
 
 	public Long getId() {
 		return id;
@@ -37,14 +49,5 @@ public class UserEntity {
 		this.address = address;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(nullable = false,length = 30)
-	private String username;
-
-	@OneToOne(mappedBy = "user")
-	private AddressEntity address;
 	
 }

@@ -8,4 +8,5 @@ import com.jv.crud_operation.model.entity.AddressEntity;
 @Repository
 public interface AddressRepository extends JpaRepository<AddressEntity,Long> {
 
+	AddressEntity findByUserId(Long id);
 }

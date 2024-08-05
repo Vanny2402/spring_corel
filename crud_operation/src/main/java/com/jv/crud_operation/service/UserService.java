@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
 import com.jv.crud_operation.exception.BadRequestException;
@@ -23,12 +24,10 @@ import jakarta.transaction.Transactional;
 public class UserService {
 
 	private final UserRepository userRepository;
-	private final AddressRepository addressRepository;
 
 	@Autowired
-	public UserService(UserRepository userRepository, AddressRepository addressRepository) {
+	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
-		this.addressRepository = addressRepository;
 	}
 
 	@Transactional
@@ -42,13 +41,7 @@ public class UserService {
 		try {
 			// Save User Request
 			UserEntity user = this.userRepository.save(request);
-			// Create and save Address Request
-			AddressEntity savedAddress = this.addressRepository.save(userRequest.getAddress().toEntity(user));
-			// Set the saved address back to the user
-			user.setAddress(savedAddress);
-			UserEntity updatedUser = this.userRepository.save(user);
-			return updatedUser;
-
+			return this.userRepository.save(user);
 		} catch (Exception ex) {
 			throw new Exception(ex);
 		}
@@ -68,45 +61,44 @@ public class UserService {
 	}
 
 	public UserEntity update(Long id, UserEntityRequuest req) throws Exception {
-		// Validate that user exists
 		UserEntity foundUser = this.userRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("User not found"));
-
-		// Validate if username already exists then throw error
-		if (!Objects.equals(foundUser.getUsername(), req.getUsername())) {
-			if (this.userRepository.existsByUsername(req.getUsername())) {
-				throw new AlreadyExistException("Username already exists!");
-			}
+		
+		System.out.println("Name From DB: "+foundUser.getUsername() +"\n Name Request: "+req.getUsername());
+		if (foundUser.getUsername().equals(req.getUsername())) {
+			throw new AlreadyExistException("Username already exists!");
+		}else {
+			foundUser.setUsername(req.getUsername());
 		}
-
-		// Prepare data
-		foundUser.setUsername(req.getUsername());
-
-		if (req.getAddress() == null) {
-			foundUser.setAddress(null);
+	
+		if (req.getAddress().getAddress()!= null) {
+			if (foundUser.getAddress() != null) {
+                foundUser.setAddress(null);
+                userRepository.flush();
+            }
+			foundUser.setAddress(req.toEntity(foundUser));
 		} else {
-			AddressEntity newAddress = req.getAddress().toEntity(foundUser);
-			AddressEntity existingAddress = addressRepository.findByUserId(foundUser.getId());
-
-			if (existingAddress != null) {
-				// Update the existing address
-				AddressEntity addressEntity = existingAddress;
-				addressEntity.setAddress(newAddress.getAddress());
-				foundUser.setAddress(addressEntity);
-			} else {
-				// Set the new address
-				foundUser.setAddress(newAddress);
-			}
+			foundUser.setAddress(null);
 		}
-
+		
 		try {
-			// Save user entity
 			return this.userRepository.save(foundUser);
-		} catch (DataIntegrityViolationException ex) {
-			// Handle the exception for unique constraint violation
-			throw new AlreadyExistException("An address already exists for this user.");
 		} catch (Exception ex) {
 			throw new Exception(ex);
 		}
 	}
+	
+	public void delete(Long id) throws Exception {
+		
+		try {
+			
+			this.userRepository.deleteById(id);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+	
+
+	
+	
 }

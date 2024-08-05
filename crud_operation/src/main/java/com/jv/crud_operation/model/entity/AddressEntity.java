@@ -31,8 +31,8 @@ public class AddressEntity {
 	}
 
 	@OneToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="userId",nullable = false,referencedColumnName = "id")
-	@MapsId
+	@JoinColumn(name="userId",nullable = false,referencedColumnName = "id")
+//	@MapsId
 	private UserEntity user;
 	
 	

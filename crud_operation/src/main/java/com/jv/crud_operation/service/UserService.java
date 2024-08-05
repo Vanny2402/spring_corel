@@ -87,7 +87,6 @@ public class UserService {
 			throw new Exception(ex);
 		}
 	}
-	
 	public void delete(Long id) throws Exception {
 		
 		try {

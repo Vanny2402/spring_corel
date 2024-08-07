@@ -3,11 +3,12 @@ package com.jv.crud_operation.model.entity.response.comment;
 import java.io.Serializable;
 
 import com.jv.crud_operation.model.entity.PostCommentEntity;
-import com.jv.crud_operation.model.entity.response.post.ShotPostResponse;
+import com.jv.crud_operation.model.entity.response.post.PostResponse;
+import com.jv.crud_operation.model.entity.response.post.PostResponse;
 
 public class CommentResponse implements Serializable {
 
-	private ShotPostResponse post;
+	private PostResponse post;
 	private Long id;
 	private String comment;
 	
@@ -24,16 +25,18 @@ public class CommentResponse implements Serializable {
 		this.comment = comment;
 	}
 
-	public ShotPostResponse getPost() {
+	public PostResponse getPost() {
 		return post;
 	}
-	public CommentResponse(Long id, String comment,ShotPostResponse post) {
+	public CommentResponse(Long id, String comment,PostResponse post) {
 		this.id = id;
 		this.comment = comment;
 		this.post=post;
 	}
 
 	public static CommentResponse fromEntity(PostCommentEntity entity) {
-		return new CommentResponse(entity.getId(), entity.getComment(),ShotPostResponse.fromEntity(entity.getPost()));
+//		System.out.println("Hello Post: "+entity.getPost().getTitle());
+//		return new CommentResponse(entity.getId(), entity.getComment(),ShotPostResponse.fromEntity(entity.getPost()));
+		return new CommentResponse(entity.getId(),entity.getComment(),PostResponse.fromEntity(entity.getPost()));
 	}
 }

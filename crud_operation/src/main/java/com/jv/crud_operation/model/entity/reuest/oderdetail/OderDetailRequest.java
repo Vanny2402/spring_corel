@@ -7,9 +7,12 @@ import com.jv.crud_operation.model.entity.OrderEntity;
 
 public class OderDetailRequest implements Serializable {
 
+	
 	private String productName;
 	private Long qty;
 	private Double price;
+	
+	
 	
 	public String getProductName() {
 		return productName;
@@ -29,6 +32,8 @@ public class OderDetailRequest implements Serializable {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+
 
 
 	

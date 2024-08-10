@@ -9,7 +9,7 @@ import com.jv.crud_operation.model.entity.reuest.oderdetail.OderDetailRequest;
 public class OrderRequest implements Serializable{
 	
 	private String customerName;
-	private List<OderDetailRequest> orderDetail;
+	private List<OderDetailRequest> orderDetails;
 
 	
 	public String getCustomerName() {
@@ -19,10 +19,10 @@ public class OrderRequest implements Serializable{
 		this.customerName = customerName;
 	}
 	public List<OderDetailRequest> getOrderDetail() {
-		return orderDetail;
+		return orderDetails;
 	}
 	public void setOrderDetail(List<OderDetailRequest> orderDetail) {
-		this.orderDetail = orderDetail;
+		this.orderDetails = orderDetail;
 	}
 
 	

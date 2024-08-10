@@ -22,34 +22,18 @@ public class OrderResponse implements Serializable{
 	public Long getId() {
 		return id;
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getCustomerName() {
 		return customerName;
-	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
 	}
 	public Double getTotal() {
 		return total;
 	}
-	public void setTotal(Double total) {
-		this.total = total;
-	}
 	public List<OrderDetailResponse> getOrderDetails() {
 		return orderDetails;
 	}
-	public void setOrderDetails(List<OrderDetailResponse> orderDetails) {
-		this.orderDetails = orderDetails;
+	public static OrderResponse fromEntity(OrderEntity orderEntity) {		
+		return new OrderResponse(orderEntity.getId(),orderEntity.getCustomerName(),orderEntity.getTotalPrice(),orderEntity.getOrderDetails().stream().map(OrderDetailResponse::fromEntity).toList());
 	}
-
-	
-//	public static OrderResponse fromEntity(OrderEntity orderEntity) {
-//		List<OrderDetailResponse> orderDetailResponse=orderEntity.getOrderDetail().stream().map(OrderDetailResponse::fromEntity).toList();
-//		
-//		return new OrderResponse(orderEntity.getId(), orderEntity.getCustomerName(),orderEntity.getTotal(),orderDetailResponse);
-//	}
 	
 
 }

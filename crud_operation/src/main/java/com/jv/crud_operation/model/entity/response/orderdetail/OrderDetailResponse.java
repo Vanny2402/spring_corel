@@ -20,27 +20,18 @@ public class OrderDetailResponse implements Serializable {
 	public Long getId() {
 		return id;
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public String getProductName() {
 		return productName;
-	}
-	public void setProductName(String productName) {
-		this.productName = productName;
 	}
 	public Long getQty() {
 		return qty;
 	}
-	public void setQty(Long qty) {
-		this.qty = qty;
-	}
+
 	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+
 
 	public static OrderDetailResponse fromEntity(OrderDetail orderDetail) {
 		return new OrderDetailResponse(orderDetail.getId(),orderDetail.getProductName(), orderDetail.getQty(), orderDetail.getPrice());

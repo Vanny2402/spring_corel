@@ -33,17 +33,17 @@ public class OrderRequest implements Serializable{
 		this.orderDetails = orderDetails;
 	}
 	
-	public OrderEntity toEntity() {
-		OrderEntity orderEntity=new OrderEntity();
-		orderEntity.setCustomerName(this.customerName);
-		orderEntity.setTotal(this.total);
-		
-		List<OrderDetail>orderDetails=this.orderDetails.stream().map(OderDetailRequest::toEntity).toList();
-		orderDetails.forEach(orderDetail -> orderDetail.setOrder(orderEntity));
-		orderEntity.setOrderDetail(orderDetails);
-		return orderEntity;
-		
-	}
+//	public OrderEntity toEntity() {
+//		OrderEntity orderEntity=new OrderEntity();
+//		orderEntity.setCustomerName(this.customerName);
+//		orderEntity.setTotal(this.total);
+//		
+//		List<OrderDetail>orderDetails=this.orderDetails.stream().map(OderDetailRequest::toEntity).toList();
+//		orderDetails.forEach(orderDetail -> orderDetail.setOrder(orderEntity));
+//		orderEntity.setOrderDetail(orderDetails);
+//		return orderEntity;
+//		
+//	}
 
 	
 }

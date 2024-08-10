@@ -45,11 +45,11 @@ public class OrderResponse implements Serializable{
 	}
 
 	
-	public static OrderResponse fromEntity(OrderEntity orderEntity) {
-		List<OrderDetailResponse> orderDetailResponse=orderEntity.getOrderDetail().stream().map(OrderDetailResponse::fromEntity).toList();
-		
-		return new OrderResponse(orderEntity.getId(), orderEntity.getCustomerName(),orderEntity.getTotal(),orderDetailResponse);
-	}
+//	public static OrderResponse fromEntity(OrderEntity orderEntity) {
+//		List<OrderDetailResponse> orderDetailResponse=orderEntity.getOrderDetail().stream().map(OrderDetailResponse::fromEntity).toList();
+//		
+//		return new OrderResponse(orderEntity.getId(), orderEntity.getCustomerName(),orderEntity.getTotal(),orderDetailResponse);
+//	}
 	
 
 }

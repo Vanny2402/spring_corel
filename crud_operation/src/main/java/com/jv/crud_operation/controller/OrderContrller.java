@@ -19,11 +19,11 @@ public class OrderContrller {
 	public OrderContrller(OrderService orderService) {
 		this.orderService = orderService;
 	}
-	
-	@PostMapping()
-	public ResponseEntity<OrderResponse> save(@RequestBody OrderRequest request){
-		OrderEntity data=orderService.save(request);
-		return ResponseEntity.ok(OrderResponse.fromEntity(data));
-	}
-	
+//	
+//	@PostMapping()
+//	public ResponseEntity<OrderResponse> save(@RequestBody OrderRequest request){
+//		OrderEntity data=orderService.save(request);
+//		return ResponseEntity.ok(OrderResponse.fromEntity(data));
+//	}
+//	
 }

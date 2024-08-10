@@ -18,10 +18,10 @@ public class OrderService {
 		this.orderRepository = orderRepository;
 	}
 	
-	@Transactional
-	public OrderEntity save(OrderRequest request) {
-		OrderEntity orderEntity=orderRepository.save(request.toEntity());
-		return orderEntity;
-		
-	}
+//	@Transactional
+//	public OrderEntity save(OrderRequest request) {
+//		OrderEntity orderEntity=orderRepository.save(request.toEntity());
+//		return orderEntity;
+//		
+//	}
 }

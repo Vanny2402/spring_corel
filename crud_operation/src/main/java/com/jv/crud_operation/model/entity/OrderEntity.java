@@ -25,7 +25,7 @@ public class OrderEntity {
 	@Column(nullable = false)
 	private Double totalPrice;
 	
-	@OneToMany(mappedBy = "order",fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderDetail> orderDetails;
 	
 	
@@ -62,54 +62,7 @@ public class OrderEntity {
 	}
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	public Double getTotal() {
-//		return total;
-//	}
-//
-//	@Column(name="toal")
-//	private Double total;
-//	
-//	@Column(name="orderdetail_id")
-//	@OneToMany(mappedBy = "order",cascade =CascadeType.ALL,orphanRemoval = true)
-//	private List<OrderDetail> orderDetail;
-//	
-//	public List<OrderDetail> getOrderDetail() {
-//		return orderDetail;
-//	}
-//
-//	public void setOrderDetail(List<OrderDetail> orderDetail) {
-//		this.orderDetail = orderDetail;
-//	}
-//
-//	public void setTotal(Double total) {
-//		this.total = total;
-//	}
-//
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
-//
-//	public String getCustomerName() {
-//		return customerName;
-//	}
-//
-//	public void setCustomerName(String customerName) {
-//		this.customerName = customerName;
-//	}
-//
+
 
 
 }

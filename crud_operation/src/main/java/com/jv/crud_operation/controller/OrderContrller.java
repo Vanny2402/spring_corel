@@ -5,6 +5,7 @@ import java.util.List;
 import org.aspectj.weaver.ast.Literal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,9 +51,15 @@ public class OrderContrller {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<OrderResponse> update(@PathVariable Long id,@RequestBody OrderRequest request) throws Exception{
-		OrderEntity data=this.orderService.upadate(id, request);
+		OrderEntity data=this.orderService.update(id, request);
 		return ResponseEntity.ok(OrderResponse.fromEntity(data));
 		
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<OrderResponse> delete(@PathVariable Long id) throws Exception{
+		OrderEntity data=this.orderService.delete(id);
+		return ResponseEntity.ok(OrderResponse.fromEntity(data));
 	}
 	
 }

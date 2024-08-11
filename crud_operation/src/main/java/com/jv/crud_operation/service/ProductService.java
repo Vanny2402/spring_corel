@@ -20,18 +20,36 @@ public class ProductService {
 		this.tagrepository = tagrepository;
 	}
 
-	public ProductEnitty saveProduct(ProductRequest req) {
+	public ProductEnitty saveProduct(ProductRequest req) throws Exception {
+		//#1. casting from request model to Eintity
+		ProductEnitty data=req.toEntity();
+		//#2.Validate if tag exist or not
+	   List<TagEntity>foundTags=this.tagrepository.findAllById(req.getTagId());
+	   //#3.set Tag data 
+		data.setTags(foundTags);
+		
+		try {
+			return this.productRepository.save(data);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		
+
+		
+		
+		
 //#0. To have List of Tag
-        List<TagEntity> tags = tagrepository.findAllById(req.getTagId());
+//        List<TagEntity> tags = tagrepository.findAllById(req.getTagId());
 //#1. CastCat Data 
-		ProductEnitty data=req.toEntity(tags);
+//		ProductEnitty data=req.toEntity(tags);
 //#2. Prepare Data 
-		data.setName(req.getName());
-		data.setDescription(req.getDescription());
-		data.setPrice(req.getPrice());
-		data.setTags(tags);
-		System.out.println("Tage "+data.getTags());
+//		data.setName(req.getName());
+//		data.setDescription(req.getDescription());
+//		data.setPrice(req.getPrice());
+//		data.setTags(tags);
+//		System.out.println("Tage "+data.getTags());
 //#3. Save Data and return 
-		return productRepository.save(data);
+//		return productRepository.save(data);
+		
 	}
 }

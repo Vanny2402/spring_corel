@@ -50,14 +50,26 @@ public class ProductRequest implements Serializable{
 		this.tagId = tagId;
 	}
 
-	public ProductEnitty toEntity(List<TagEntity> tags) {
-		ProductEnitty product=new ProductEnitty();
-	    product.setName(this.name);
-		product.setPrice(this.price);
-		product.setDescription(this.description);
-		product.setTags(tags);
-		return product;
-	}
+	
+	
+	public ProductEnitty toEntity() {
+	ProductEnitty product=new ProductEnitty();
+    product.setName(this.name);
+	product.setPrice(this.price);
+	product.setDescription(this.description);
+	return product;
+}
+	
+	
+	
+//	public ProductEnitty toEntity(List<TagEntity> tags) {
+//		ProductEnitty product=new ProductEnitty();
+//	    product.setName(this.name);
+//		product.setPrice(this.price);
+//		product.setDescription(this.description);
+//		product.setTags(tags);
+//		return product;
+//	}
 	
 	
 	

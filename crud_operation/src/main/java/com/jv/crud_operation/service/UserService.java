@@ -64,7 +64,6 @@ public class UserService {
 		UserEntity foundUser = this.userRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("User not found"));
 		
-		System.out.println("Name From DB: "+foundUser.getUsername() +"\n Name Request: "+req.getUsername());
 		if (foundUser.getUsername().equals(req.getUsername())) {
 			throw new AlreadyExistException("Username already exists!");
 		}else {

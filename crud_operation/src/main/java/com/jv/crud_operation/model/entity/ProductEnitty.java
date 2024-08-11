@@ -31,7 +31,7 @@ public class ProductEnitty {
 	private String description;
 	
 	@ManyToMany
-	@JoinTable(name="product_tags",joinColumns =@JoinColumn(name="product_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name="tag_id",referencedColumnName = "id"))
+	@JoinTable(name="product_tags",joinColumns =@JoinColumn(name="product_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name="tag_id",referencedColumnName = "id "))
 	private List<TagEntity> tags;
 	
 	

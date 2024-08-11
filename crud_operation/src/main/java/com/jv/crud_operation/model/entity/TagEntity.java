@@ -33,9 +33,4 @@ public class TagEntity {
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
-
-
-	
-	
-
 }

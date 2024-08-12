@@ -30,3 +30,4 @@ public class ProductController {
 		return ResponseEntity.ok(ProductResponse.fromEntity(product));
 	}
 }
+	

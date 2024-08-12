@@ -1,6 +1,7 @@
 package com.jv.crud_operation.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,8 @@ public class ProductService {
 		//#1. casting from request model to Eintity
 		ProductEnitty data=req.toEntity();
 		//#2.Validate if tag exist or not
-	   List<TagEntity>foundTags=this.tagrepository.findAllById(req.getTagId());
+	   List<TagEntity>foundTagList=this.tagrepository.findAllById(req.getTagId());
+	   Set<TagEntity>foundTags=Set.copyOf(foundTagList);
 	   //#3.set Tag data 
 		data.setTags(foundTags);
 		

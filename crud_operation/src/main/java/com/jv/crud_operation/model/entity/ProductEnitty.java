@@ -1,6 +1,8 @@
 package com.jv.crud_operation.model.entity;
 
-import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
@@ -34,7 +36,8 @@ public class ProductEnitty {
 	
 	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinTable(name="product_tags",joinColumns =@JoinColumn(name="product_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name="tag_id",referencedColumnName = "id "))
-	private List<TagEntity> tags;
+	@JsonBackReference
+	private Set<TagEntity> tags;
 	
 	
 	public Long getId() {
@@ -62,18 +65,18 @@ public class ProductEnitty {
 	}
 
 	public String getDescription() {
-		return description;
+		return description; 
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	
-	public List<TagEntity> getTags() {
+	public Set<TagEntity> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<TagEntity> tags) {
+	public void setTags(Set<TagEntity> tags) {
 		this.tags = tags;
 	}
 

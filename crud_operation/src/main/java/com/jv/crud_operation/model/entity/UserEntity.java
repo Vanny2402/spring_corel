@@ -21,7 +21,7 @@ public class UserEntity {
 	@Column(nullable = false,length = 30)
 	private String username;
 
-	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToOne(mappedBy = "user",cascade = CascadeType.PERSIST)
 	private AddressEntity address;
 
 	public Long getId() {

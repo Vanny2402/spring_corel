@@ -2,6 +2,7 @@ package com.jv.crud_operation.model.entity.response.product;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import com.jv.crud_operation.model.entity.ProductEnitty;
 import com.jv.crud_operation.model.entity.TagEntity;
@@ -12,7 +13,7 @@ public class ProductResponse implements Serializable{
 	private String name;
 	private String description;
 	private Double price;
-	private List<TagEntity> tag;
+	private Set<TagEntity> tag;
 	
 	
 	public Long getId() {
@@ -39,14 +40,14 @@ public class ProductResponse implements Serializable{
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public List<TagEntity> getTag() {
+	public Set<TagEntity> getTag() {
 		return tag;
 	}
-	public void setTag(List<TagEntity> tag) {
+	public void setTag(Set<TagEntity> tag) {
 		this.tag = tag;
 	}
 	
-	public ProductResponse(Long id, String name, String description, Double price, List<TagEntity> set) {
+	public ProductResponse(Long id, String name, String description, Double price, Set<TagEntity> set) {
 		this.id = id;
 		this.name = name;
 		this.description = description;

@@ -35,10 +35,10 @@ public class ProductEnitty {
 	@Basic
 	private String description;
 	
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY)
 	@JoinTable(name="product_tags",joinColumns =@JoinColumn(name="product_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name="tag_id",referencedColumnName = "id "))
 	@JsonBackReference
-	private List<TagEntity> tags;
+	private Set<TagEntity> tags;
 	
 	
 	public Long getId() {
@@ -73,11 +73,11 @@ public class ProductEnitty {
 		this.description = description;
 	}
 	
-	public List<TagEntity> getTags() {
+	public Set<TagEntity> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<TagEntity> tags) {
+	public void setTags(Set<TagEntity> tags) {
 		this.tags = tags;
 	}
 

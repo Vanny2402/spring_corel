@@ -55,7 +55,6 @@ public class ProductResponse implements Serializable{
 		this.tag = tag;
 	}
 	
-	
 	public static ProductResponse fromEntity(ProductEnitty entity) {
 		return new ProductResponse(entity.getId(),entity.getName(),entity.getDescription(),entity.getPrice(),entity.getTags());
 		

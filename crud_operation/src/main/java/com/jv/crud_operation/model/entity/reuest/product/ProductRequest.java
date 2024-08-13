@@ -1,7 +1,7 @@
 package com.jv.crud_operation.model.entity.reuest.product;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import com.jv.crud_operation.model.entity.ProductEnitty;
 
@@ -11,7 +11,7 @@ public class ProductRequest implements Serializable{
 	private String name;
 	private Double price; 
 	private String description;
-	private Set<Long> tagId; 	
+	private List<Long> tagId; 	
 
 
 	
@@ -40,10 +40,10 @@ public class ProductRequest implements Serializable{
 		this.description = description;
 	}
 	
-	public Set<Long> getTagId() {
+	public List<Long> getTagId() {
 		return tagId;
 	}
-	public void setTagId(Set<Long> tagId) {
+	public void setTagId(List<Long> tagId) {
 		this.tagId = tagId;
 	}
 

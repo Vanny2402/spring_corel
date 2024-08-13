@@ -29,6 +29,8 @@ public class TagResponse implements Serializable{
 	}
 	
 	public static TagResponse fromEntity(TagEntity entity) {
+		if(entity==null)
+			return null;
 		return new TagResponse(entity.getId(),entity.getTagName());
 	}
 }

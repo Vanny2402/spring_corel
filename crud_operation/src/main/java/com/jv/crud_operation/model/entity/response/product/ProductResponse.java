@@ -2,18 +2,17 @@ package com.jv.crud_operation.model.entity.response.product;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import com.jv.crud_operation.model.entity.ProductEnitty;
 import com.jv.crud_operation.model.entity.TagEntity;
-import com.jv.crud_operation.model.entity.response.tag.TagResponse;
 
 public class ProductResponse implements Serializable{
+	
 	private Long id;
 	private String name;
 	private String description;
 	private Double price;
-	private Set<TagEntity> tag;
+	private List<TagEntity> tag;
 	
 	
 	public Long getId() {
@@ -40,21 +39,29 @@ public class ProductResponse implements Serializable{
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public Set<TagEntity> getTag() {
+	public List<TagEntity> getTag() {
 		return tag;
 	}
-	public void setTag(Set<TagEntity> tag) {
+	public void setTag(List<TagEntity> tag) {
 		this.tag = tag;
 	}
 	
-	public ProductResponse(Long id, String name, String description, Double price, Set<TagEntity> tag) {
+	public ProductResponse(Long id, String name, String description, Double price, List<TagEntity> set) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.tag = tag;
+		this.tag = set;
 	}
 	
+//	public static ProductResponse fromEntity(ProductEnitty entity) {
+//		List<TagResponse> tags=new ArrayList<>(Collections.emptySet());
+//		if(entity.getTags()!=null)
+//			for(TagEntity var :entity.getTags()) {
+//				tags.add(TagResponse.fromEntity(var));
+//			}
+//		return new ProductResponse(entity.getId(),entity.getName(),entity.getDescription(),entity.getPrice(),tags);
+//	}
 	public static ProductResponse fromEntity(ProductEnitty entity) {
 		return new ProductResponse(entity.getId(),entity.getName(),entity.getDescription(),entity.getPrice(),entity.getTags());
 		

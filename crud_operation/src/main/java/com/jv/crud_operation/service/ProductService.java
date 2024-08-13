@@ -1,8 +1,6 @@
 package com.jv.crud_operation.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -28,9 +26,9 @@ public class ProductService {
 		ProductEnitty data=req.toEntity();
 		/*2.Validate if tag exist or not*/
 	   List<TagEntity>foundTagList=this.tagrepository.findAllById(req.getTagId());
-	   Set<TagEntity>foundTags=Set.copyOf(foundTagList);
+//	   Set<TagEntity>foundTags=Set.copyOf(foundTagList);
 	   /*3.set Tag data */
-		data.setTags(foundTags);
+		data.setTags(foundTagList);
 		try {
 			return this.productRepository.save(data);
 		} catch (Exception e) {
@@ -74,12 +72,12 @@ public class ProductService {
 		 * */
 		ProductEnitty foundProduct=finOne(id);
 		List<TagEntity> lt=getTagList(req.getTagId());
-		Set<TagEntity>ls =new HashSet<>(lt);
+//		Set<TagEntity>ls =new HashSet<>(lt);
 		
 		foundProduct.setName(req.getName());
 		foundProduct.setDescription(req.getDescription());
 		foundProduct.setPrice(req.getPrice());
-		foundProduct.setTags(ls);
+		foundProduct.setTags(lt);
 		
 		for(TagEntity s :lt) {
 			System.out.print("\nHere is TagName: "+s.getTagName());

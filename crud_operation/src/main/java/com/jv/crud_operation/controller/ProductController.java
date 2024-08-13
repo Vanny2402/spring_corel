@@ -54,9 +54,7 @@ public class ProductController {
 		ProductEnitty data=this.productService.update(id, request);
 		return ResponseEntity.ok(ProductResponse.fromEntity(data));
 	}
-	
-	
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<HashMap>deleteItem(@PathVariable Long id) throws NotFoundException{
 

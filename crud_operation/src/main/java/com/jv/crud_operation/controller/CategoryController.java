@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jv.crud_operation.exception.NotFoundException;
@@ -43,8 +44,8 @@ public class CategoryController {
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<List<CategoryResponse>> findAll(){
-		List<CategoryResponse> category=this.categoryService.findAll().stream().map(CategoryResponse::fromEntity).toList();
+	public ResponseEntity<List<CategoryResponse>> findAll(@RequestParam(name="n",required = false) String	 text){
+		List<CategoryResponse> category=this.categoryService.findAll(text).stream().map(CategoryResponse::fromEntity).toList();
 		return ResponseEntity.ok(category);
 	}
 	

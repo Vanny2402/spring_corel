@@ -8,4 +8,5 @@ import com.jv.crud_operation.model.entity.ProductEnitty;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEnitty,Long>{
 
+	
 }

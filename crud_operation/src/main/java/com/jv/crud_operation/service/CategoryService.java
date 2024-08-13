@@ -3,6 +3,7 @@ package com.jv.crud_operation.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
 import com.jv.crud_operation.exception.NotFoundException;
@@ -49,8 +50,8 @@ public class CategoryService {
 	}
 	
 	
-	public List<CategoryEntity> findAll(){
-		return this.categoryRepository.findAll();
+	public List<CategoryEntity> findAll(String text){
+		return this.categoryRepository.findAllByNameContainingIgnoreCase(text);
 	}
 	
 	public CategoryEntity findOne(Long id) throws NotFoundException {

@@ -51,7 +51,10 @@ public class CategoryService {
 	
 	
 	public List<CategoryEntity> findAll(String text){
-		return this.categoryRepository.findAllByNameContainingIgnoreCase(text);
+		if(text == null)
+			return this.categoryRepository.findAllByUsingNativeQurey();
+		else 
+			return this.categoryRepository.findAllByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(text);
 	}
 	
 	public CategoryEntity findOne(Long id) throws NotFoundException {

@@ -2,7 +2,7 @@ package com.jv.crud_operation.model.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +24,7 @@ public class TagEntity {
 	private String tagName;
 	
 	@ManyToMany(mappedBy = "tags")
-	@JsonBackReference
+	@JsonManagedReference
     private List<ProductEnitty> products;
 
 	public Long getId() {

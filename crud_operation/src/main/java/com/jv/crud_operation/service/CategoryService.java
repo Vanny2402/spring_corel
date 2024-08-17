@@ -3,6 +3,7 @@ package com.jv.crud_operation.service;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
@@ -49,18 +50,6 @@ public class CategoryService {
 		return this.categoryRepository.save(dataFilter);
 	}
 	
-	
-	public List<CategoryEntity> findAll( String text,String shortName){
-		if(text == null)
-			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllOrderByNameAsc();
-			else return this.categoryRepository.findAllOrderByNameDesc();
-		else 
-			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(text);
-			else return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(text);
-	}
-	
-	
-	
 	public CategoryEntity findOne(Long id) throws NotFoundException {
 		return this.categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("This is category is not exist"));
 	}
@@ -71,6 +60,31 @@ public class CategoryService {
 		this.categoryRepository.deleteById(category.getId());
 		return category;
 	}
+	
+	
+	
+	
+	public List<CategoryEntity> findAll(String text,String shortName){
+		/*if(text == null)
+			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllOrderByNameAscNativeQuery();
+			else return this.categoryRepository.findAllOrderByNameDescNativeQuery();
+		else 
+			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(text);
+			else return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(text);
+		*/
+		
+		if(text==null || text.equals("")){
+			if(Objects.equals(shortName, "a-z")) return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.by(Sort.Direction.ASC,"name"));
+			else return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.by(Sort.Direction.DESC,"name"));
+		}
+		else {
+			if(Objects.equals(shortName, "a-z")) return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort.by(Sort.Direction.ASC,"name"));
+			else return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort.by(Sort.Direction.DESC,"name"));
+		}
+	}
+	
+	
+
 	
 	
 	

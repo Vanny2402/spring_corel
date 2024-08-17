@@ -1,9 +1,8 @@
 package com.jv.crud_operation.model.entity;
 
-import java.util.List;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
@@ -16,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 @Entity
@@ -36,8 +36,9 @@ public class ProductEnitty {
 	private String description;
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY)
-	@JoinTable(name="product_tags",joinColumns =@JoinColumn(name="product_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name="tag_id",referencedColumnName = "id "))
-	@JsonBackReference
+	@JoinTable(name="product_tags",joinColumns =@JoinColumn(name="product_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name="tag_id",referencedColumnName = "id"))
+	@JsonIgnore
+	@OrderBy("tagName DESC")
 	private Set<TagEntity> tags;
 	
 	

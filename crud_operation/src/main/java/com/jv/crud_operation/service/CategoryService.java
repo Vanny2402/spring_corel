@@ -1,7 +1,11 @@
 package com.jv.crud_operation.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +65,7 @@ public class CategoryService {
 		return category;
 	}
 	
-	public Page<CategoryEntity> findAll(String q,int page,int limit){
+	public Page<CategoryEntity> findAll(String q,int page,int limit,Boolean isPage,String sort){
 		/*if(text == null)
 			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllOrderByNameAscNativeQuery();
 			else return this.categoryRepository.findAllOrderByNameDescNativeQuery();
@@ -79,26 +83,25 @@ public class CategoryService {
 			else return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort.by(Sort.Direction.DESC,"name"));
 		}
 		*/
+		
+		List<Sort.Order> sortByList=new ArrayList<>();
+		sortByList.add((new Sort.Order(Sort.Direction.DESC,"id")));
+		sortByList.add(new Sort.Order(Sort.Direction.ASC,"name"));
+		
+		
 		if(page<=0 || limit<=0) throw new BadRequestException("Invalid Pagination!");
+		Pageable pageable;
+		if(isPage) pageable = PageRequest.of(page-1,limit,Sort.by(sortByList));
+		else pageable=Pageable.unpaged();
+	
 		if(q==null || q.equals("")) {
-			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(PageRequest.of(page-1,limit,Sort.by(Sort.Direction.DESC,"id")),"");
+		
+			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable,"");
 		}
 		else {
-			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(PageRequest.of(page-1,limit,Sort.by(Sort.Direction.DESC,"id")),q);
+			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable,q);
 		}
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

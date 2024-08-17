@@ -1,8 +1,8 @@
 package com.jv.crud_operation.controller;
 
 import java.util.List;
+import java.util.Objects;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,15 +43,15 @@ public class CategoryController {
 		CategoryEntity category = this.categoryService.update(id, request);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
-	
-	
 
 	@GetMapping("")
 	public ResponseEntity<List<CategoryResponse>> findAll(
 			@RequestParam(name = "q", required = false) String q,
 			@RequestParam(name = "page", required = true) int page,
-			@RequestParam(name = "limit", required = true) int limit) {
-		List<CategoryResponse> category = this.categoryService.findAll(q, page, limit).stream()
+			@RequestParam(name = "limit", required = true) int limit,
+			@RequestParam(name="isPage",required = false,defaultValue ="true") String isPage,
+			@RequestParam(name="sort",required = false,defaultValue = "id:desc") String sort){
+		List<CategoryResponse> category = this.categoryService.findAll(q, page, limit,Objects.equals(isPage,"true"),sort).stream()
 				.map(CategoryResponse::fromEntity).toList();
 		return ResponseEntity.ok(category);
 	}

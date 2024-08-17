@@ -70,5 +70,4 @@ public interface CategoryRepository extends  JpaRepository<CategoryEntity,Long> 
 	
 	
 	
-	
 }

@@ -1,9 +1,9 @@
 package com.jv.crud_operation.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
 import com.jv.crud_operation.exception.NotFoundException;
@@ -50,12 +50,16 @@ public class CategoryService {
 	}
 	
 	
-	public List<CategoryEntity> findAll(String text){
+	public List<CategoryEntity> findAll( String text,String shortName){
 		if(text == null)
-			return this.categoryRepository.findAllByUsingNativeQurey();
+			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllOrderByNameAsc();
+			else return this.categoryRepository.findAllOrderByNameDesc();
 		else 
-			return this.categoryRepository.findAllByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(text);
+			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(text);
+			else return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(text);
 	}
+	
+	
 	
 	public CategoryEntity findOne(Long id) throws NotFoundException {
 		return this.categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("This is category is not exist"));

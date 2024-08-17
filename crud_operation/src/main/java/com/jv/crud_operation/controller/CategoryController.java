@@ -44,8 +44,8 @@ public class CategoryController {
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<List<CategoryResponse>> findAll(@RequestParam(name="n",required = false) String	 text){
-		List<CategoryResponse> category=this.categoryService.findAll(text).stream().map(CategoryResponse::fromEntity).toList();
+	public ResponseEntity<List<CategoryResponse>> findAll(@RequestParam(name="q",required = false) String text,@RequestParam(name="shortName",required = false,defaultValue = "a-z") String shortText){
+		List<CategoryResponse> category=this.categoryService.findAll(text,shortText).stream().map(CategoryResponse::fromEntity).toList();
 		return ResponseEntity.ok(category);
 	}
 	

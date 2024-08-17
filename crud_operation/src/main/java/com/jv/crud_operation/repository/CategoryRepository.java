@@ -18,4 +18,19 @@ public interface CategoryRepository extends  JpaRepository<CategoryEntity,Long> 
 	
 	@Query(value="SELECT * FROM category",nativeQuery =true)
 	List<CategoryEntity>findAllByUsingNativeQurey();
+	
+	@Query("SELECT c FROM CategoryEntity c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')) ORDER BY c.name ASC")
+	List<CategoryEntity>findAllByNameContainingIgnoreCaseOrderByNameAsc(@Param("name") String name);
+	
+	
+	@Query("SELECT c FROM CategoryEntity c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')) ORDER BY c.name DESC")
+	List<CategoryEntity>findAllByNameContainingIgnoreCaseOrderByNameDesc(@Param("name") String name);
+	
+	
+	@Query("SELECT c FROM CategoryEntity c ORDER BY c.name ASC")
+	List<CategoryEntity> findAllOrderByNameAsc();
+
+	
+	@Query("SELECT c FROM CategoryEntity c ORDER BY c.name DESC")
+	List<CategoryEntity> findAllOrderByNameDesc();
 }

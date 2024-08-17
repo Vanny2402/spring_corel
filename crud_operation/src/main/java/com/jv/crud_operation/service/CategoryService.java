@@ -1,14 +1,12 @@
 package com.jv.crud_operation.service;
 
-import java.util.List;
-import java.util.Objects;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
+import com.jv.crud_operation.exception.BadRequestException;
 import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.CategoryEntity;
 import com.jv.crud_operation.model.entity.reuest.CategoryRequest;
@@ -25,7 +23,7 @@ public class CategoryService {
 	public CategoryEntity create(CategoryRequest request) throws Exception {
 		//Prepare request
 		CategoryEntity data=request.toEntity();
-		//check name from reuest if exist in db or not 
+		//check name from request if exist in database or not 
 		if(this.categoryRepository.existsByName(data.getName())) {
 //			throw new Exception("Category name already exist! ");
 			throw new AlreadyExistException("Category name already exist! ");
@@ -63,10 +61,7 @@ public class CategoryService {
 		return category;
 	}
 	
-	
-	
-	
-	public Page<CategoryEntity> findAll(String text,String shortName){
+	public Page<CategoryEntity> findAll(String q,int page,int limit){
 		/*if(text == null)
 			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllOrderByNameAscNativeQuery();
 			else return this.categoryRepository.findAllOrderByNameDescNativeQuery();
@@ -84,8 +79,13 @@ public class CategoryService {
 			else return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort.by(Sort.Direction.DESC,"name"));
 		}
 		*/
-		
-		return this.categoryRepository.findAll(PageRequest.of(0,5));
+		if(page<=0 || limit<=0) throw new BadRequestException("Invalid Pagination!");
+		if(q==null || q.equals("")) {
+			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(PageRequest.of(page-1,limit,Sort.by(Sort.Direction.DESC,"id")),"");
+		}
+		else {
+			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(PageRequest.of(page-1,limit,Sort.by(Sort.Direction.DESC,"id")),q);
+		}
 	}
 	
 	

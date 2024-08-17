@@ -57,7 +57,7 @@ public interface CategoryRepository extends  JpaRepository<CategoryEntity,Long> 
 //	@Query("SELECT c FROM CategoryEntity c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%'))")
 	List<CategoryEntity>findAllCategoriesByNameContainingIgnoreCase(String name,Sort sort);
 		
-	Page<CategoryEntity> findAll(Pageable pageable);
+	Page<CategoryEntity> findAllCategoriesByNameContainingIgnoreCase(Pageable pageable,String q);
 	
 	
 	

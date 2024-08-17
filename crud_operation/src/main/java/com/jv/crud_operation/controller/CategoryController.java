@@ -31,35 +31,43 @@ public class CategoryController {
 	}
 
 	@PostMapping("")
-	public ResponseEntity<CategoryResponse>creat(@RequestBody CategoryRequest request) throws Exception{
-		CategoryEntity category=this.categoryService.create(request);
+	public ResponseEntity<CategoryResponse> creat(@RequestBody CategoryRequest request) throws Exception {
+		CategoryEntity category = this.categoryService.create(request);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoryResponse> update(@PathVariable Long id,@RequestBody CategoryRequest request) throws NotFoundException{
-		
-		CategoryEntity category=this.categoryService.update(id, request);
+	public ResponseEntity<CategoryResponse> update(@PathVariable Long id, @RequestBody CategoryRequest request)
+			throws NotFoundException {
+
+		CategoryEntity category = this.categoryService.update(id, request);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
 	
+	
+
 	@GetMapping("")
-	public ResponseEntity<List<CategoryResponse>> findAll(@RequestParam(name="q",required = false) String text,@RequestParam(name="shortName",required = false,defaultValue = "a-z") String shortText){
-		List<CategoryResponse> category=this.categoryService.findAll(text,shortText).stream().map(CategoryResponse::fromEntity).toList();
+	public ResponseEntity<List<CategoryResponse>> findAll(
+			@RequestParam(name = "q", required = false) String q,
+			@RequestParam(name = "page", required = true) int page,
+			@RequestParam(name = "limit", required = true) int limit) {
+		List<CategoryResponse> category = this.categoryService.findAll(q, page, limit).stream()
+				.map(CategoryResponse::fromEntity).toList();
 		return ResponseEntity.ok(category);
 	}
 	
+	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<CategoryResponse> findOne(@PathVariable Long id) throws NotFoundException{
-		CategoryEntity category=this.categoryService.findOne(id);
+	public ResponseEntity<CategoryResponse> findOne(@PathVariable Long id) throws NotFoundException {
+		CategoryEntity category = this.categoryService.findOne(id);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<CategoryResponse> delete(@PathVariable Long id) throws NotFoundException{
-		CategoryEntity category=categoryService.delete(id);
+	public ResponseEntity<CategoryResponse> delete(@PathVariable Long id) throws NotFoundException {
+		CategoryEntity category = categoryService.delete(id);
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
-		
 	}
-	
+
 }

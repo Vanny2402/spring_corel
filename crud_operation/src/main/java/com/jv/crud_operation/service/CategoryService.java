@@ -1,6 +1,7 @@
 package com.jv.crud_operation.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -84,14 +85,18 @@ public class CategoryService {
 		}
 		*/
 		
-		List<Sort.Order> sortByList=new ArrayList<>();
-		sortByList.add((new Sort.Order(Sort.Direction.DESC,"id")));
-		sortByList.add(new Sort.Order(Sort.Direction.ASC,"name"));
+		
+		List<Sort.Order>lsSort= Arrays.stream(sort.split(",")).map((it)-> {
+			String direction=it.split(":")[1].toLowerCase();
+			String field=it.split(":")[0];	
+			
+			return new Sort.Order(direction.equals("desc")? Sort.Direction.DESC : Sort.Direction.ASC,field);
+		}).toList();
 		
 		
 		if(page<=0 || limit<=0) throw new BadRequestException("Invalid Pagination!");
 		Pageable pageable;
-		if(isPage) pageable = PageRequest.of(page-1,limit,Sort.by(sortByList));
+		if(isPage) pageable = PageRequest.of(page-1,limit,Sort.by(lsSort));
 		else pageable=Pageable.unpaged();
 	
 		if(q==null || q.equals("")) {

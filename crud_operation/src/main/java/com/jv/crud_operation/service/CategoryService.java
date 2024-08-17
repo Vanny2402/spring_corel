@@ -3,6 +3,8 @@ package com.jv.crud_operation.service;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +66,7 @@ public class CategoryService {
 	
 	
 	
-	public List<CategoryEntity> findAll(String text,String shortName){
+	public Page<CategoryEntity> findAll(String text,String shortName){
 		/*if(text == null)
 			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllOrderByNameAscNativeQuery();
 			else return this.categoryRepository.findAllOrderByNameDescNativeQuery();
@@ -73,7 +75,7 @@ public class CategoryService {
 			else return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(text);
 		*/
 		
-		if(text==null || text.equals("")){
+	  /*	if(text==null || text.equals("")){
 			if(Objects.equals(shortName, "a-z")) return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.by(Sort.Direction.ASC,"name"));
 			else return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.by(Sort.Direction.DESC,"name"));
 		}
@@ -81,6 +83,9 @@ public class CategoryService {
 			if(Objects.equals(shortName, "a-z")) return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort.by(Sort.Direction.ASC,"name"));
 			else return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort.by(Sort.Direction.DESC,"name"));
 		}
+		*/
+		
+		return this.categoryRepository.findAll(PageRequest.of(0,5));
 	}
 	
 	

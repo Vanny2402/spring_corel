@@ -2,6 +2,8 @@ package com.jv.crud_operation.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -54,8 +56,8 @@ public interface CategoryRepository extends  JpaRepository<CategoryEntity,Long> 
 	
 //	@Query("SELECT c FROM CategoryEntity c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%'))")
 	List<CategoryEntity>findAllCategoriesByNameContainingIgnoreCase(String name,Sort sort);
-	
-	
+		
+	Page<CategoryEntity> findAll(Pageable pageable);
 	
 	
 	

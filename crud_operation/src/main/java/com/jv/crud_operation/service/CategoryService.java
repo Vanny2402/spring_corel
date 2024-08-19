@@ -2,13 +2,16 @@ package com.jv.crud_operation.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
@@ -22,105 +25,130 @@ import com.jv.crud_operation.repository.CategoryRepository;
 public class CategoryService {
 
 	private final CategoryRepository categoryRepository;
+
 	public CategoryService(CategoryRepository categoryRepository) {
 		this.categoryRepository = categoryRepository;
 	}
 
 	public CategoryEntity create(CategoryRequest request) throws Exception {
-		//Prepare request
-		CategoryEntity data=request.toEntity();
-		//check name from request if exist in database or not 
-		if(this.categoryRepository.existsByName(data.getName())) {
+		// Prepare request
+		CategoryEntity data = request.toEntity();
+		// check name from request if exist in database or not
+		if (this.categoryRepository.existsByName(data.getName())) {
 //			throw new Exception("Category name already exist! ");
 			throw new AlreadyExistException("Category name already exist! ");
 		}
-		
-		//Save Data 
+
+		// Save Data
 		try {
 			return categoryRepository.save(request.toEntity());
 		} catch (Exception ex) {
 
 			throw new Exception(ex);
 		}
-		
+
 	}
-	
-	public CategoryEntity update(Long id,CategoryRequest request) throws NotFoundException {
-		//#1 To find if Category exist or not
-		CategoryEntity dataFilter=categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("Category is not exsit"));
-		//#2 Update data
+
+	public CategoryEntity update(Long id, CategoryRequest request) throws NotFoundException {
+		// #1 To find if Category exist or not
+		CategoryEntity dataFilter = categoryRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Category is not exsit"));
+		// #2 Update data
 //		dataFilter.setName(request.getName());
 //		dataFilter.setDescription(request.getDescription());
-		dataFilter.setName(request.getName()==null? dataFilter.getName():request.getName());
-		dataFilter.setDescription(request.getDescription()==null? dataFilter.getDescription():request.getDescription());
+		dataFilter.setName(request.getName() == null ? dataFilter.getName() : request.getName());
+		dataFilter.setDescription(
+				request.getDescription() == null ? dataFilter.getDescription() : request.getDescription());
 		return this.categoryRepository.save(dataFilter);
 	}
-	
+
 	public CategoryEntity findOne(Long id) throws NotFoundException {
-		return this.categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("This is category is not exist"));
+		return this.categoryRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("This is category is not exist"));
 	}
-	
+
 	public CategoryEntity delete(Long id) throws NotFoundException {
-		//#1 To find Category
-		CategoryEntity category=findOne(id);
+		// #1 To find Category
+		CategoryEntity category = findOne(id);
 		this.categoryRepository.deleteById(category.getId());
 		return category;
 	}
-	
-	public Page<CategoryEntity> findAll(String q,int page,int limit,Boolean isPage,String sort)throws Exception {
-		/*if(text == null)
-			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllOrderByNameAscNativeQuery();
-			else return this.categoryRepository.findAllOrderByNameDescNativeQuery();
-		else 
-			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(text);
-			else return this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(text);
-		*/
-		
-	  /*	if(text==null || text.equals("")){
-			if(Objects.equals(shortName, "a-z")) return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.by(Sort.Direction.ASC,"name"));
-			else return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.by(Sort.Direction.DESC,"name"));
-		}
-		else {
-			if(Objects.equals(shortName, "a-z")) return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort.by(Sort.Direction.ASC,"name"));
-			else return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort.by(Sort.Direction.DESC,"name"));
-		}
-		*/
-		
-		/*List<Sort.Order>lsSort= Arrays.stream(sort.split(",")).map((it)-> {
-			String[] srt=it.split(":");
-			if(srt.length<=2) throw new BadRequestException("Invalid Sorting! ");
-			
-			
-			String direction=srt[1].toLowerCase();
-			String field=srt[0];
-			return new Sort.Order(direction.equals("desc")? Sort.Direction.DESC : Sort.Direction.ASC,field);
-			
-			
-		}).toList();*/
-		
-		
-	    List<Sort.Order>lsSort = new ArrayList<>();
-		for (String item: sort.split(",")) {
-			String [] str=item.split(":");
-			if(str.length != 2) throw new BadRequestException("Invalid Sort");
-			
-			String direction=str[1].toLowerCase();
-			String field=str[0];
-			
-			lsSort.add(new Sort.Order(direction.equals("desc")? Sort.Direction.DESC : Sort.Direction.ASC, field));
+
+	public Page<CategoryEntity> findAll(String q, int page, int limit, Boolean isPage, String sort) throws Exception {
+		/*
+		 * if(text == null) if(Objects.equals(shortName,"a-z")) return
+		 * this.categoryRepository.findAllOrderByNameAscNativeQuery(); else return
+		 * this.categoryRepository.findAllOrderByNameDescNativeQuery(); else
+		 * if(Objects.equals(shortName,"a-z")) return
+		 * this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(text)
+		 * ; else return
+		 * this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(text
+		 * );
+		 */
+
+		/*
+		 * if(text==null || text.equals("")){ if(Objects.equals(shortName, "a-z"))
+		 * return
+		 * this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.
+		 * by(Sort.Direction.ASC,"name")); else return
+		 * this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.
+		 * by(Sort.Direction.DESC,"name")); } else { if(Objects.equals(shortName,
+		 * "a-z")) return
+		 * this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort
+		 * .by(Sort.Direction.ASC,"name")); else return
+		 * this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort
+		 * .by(Sort.Direction.DESC,"name")); }
+		 */
+
+		/*
+		 * List<Sort.Order>lsSort= Arrays.stream(sort.split(",")).map((it)-> { String[]
+		 * srt=it.split(":"); if(srt.length<=2) throw new
+		 * BadRequestException("Invalid Sorting! ");
+		 * 
+		 * 
+		 * String direction=srt[1].toLowerCase(); String field=srt[0]; return new
+		 * Sort.Order(direction.equals("desc")? Sort.Direction.DESC :
+		 * Sort.Direction.ASC,field);
+		 * 
+		 * 
+		 * }).toList();
+		 */
+
+		List<Sort.Order> lsSort = new ArrayList<>();
+		for (String item : sort.split(",")) {
+			String[] str = item.split(":");
+			if (str.length != 2)
+				throw new BadRequestException("Invalid Sort");
+
+			String direction = str[1].toLowerCase();
+			String field = str[0];
+
+			lsSort.add(new Sort.Order(direction.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC, field));
 
 		}
-		if(page<=0 || limit<=0) throw new BadRequestException("Invalid Pagination!");
+		if (page <= 0 || limit <= 0)
+			throw new BadRequestException("Invalid Pagination!");
 		Pageable pageable;
-		if(isPage) pageable = PageRequest.of(page-1,limit,Sort.by(lsSort));
-		else pageable=Pageable.unpaged();
-	
-		if(q==null || q.equals("")) {
-		
-			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable,"");
-		}
-		else {
-			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable,q);
+		if (isPage)
+			pageable = PageRequest.of(page - 1, limit, Sort.by(lsSort));
+		else
+			pageable = Pageable.unpaged();
+
+		Map<String, String> serch = new HashMap<>();
+		serch.put("name", q);
+		serch.put("possition", q);
+
+		System.out.print("Name: " + serch.get("name") + "\n" + "Posssition: " + serch.get("possition") + "\n");
+
+		if (q == null || q.equals("")) {
+
+			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable, "");
+		} else {
+//			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable,q);
+			return this.categoryRepository.findAll((Specification<CategoryEntity>) (root, query,
+					criteriaBuilder) -> criteriaBuilder.or(
+							criteriaBuilder.like(root.get("name"), "%" + q + "%"),
+							criteriaBuilder.like(root.get("description"), "%" + q + "%")),pageable);
 		}
 	}
 }

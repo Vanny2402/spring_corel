@@ -1,7 +1,6 @@
 package com.jv.crud_operation.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +18,8 @@ import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.CategoryEntity;
 import com.jv.crud_operation.model.entity.reuest.CategoryRequest;
 import com.jv.crud_operation.repository.CategoryRepository;
+
+import jakarta.persistence.criteria.Predicate;
 
 @Service
 public class CategoryService {
@@ -136,19 +136,22 @@ public class CategoryService {
 
 		Map<String, String> serch = new HashMap<>();
 		serch.put("name", q);
-		serch.put("possition", q);
-
-		System.out.print("Name: " + serch.get("name") + "\n" + "Posssition: " + serch.get("possition") + "\n");
+		serch.put("description", q);
+		serch.put("id",q);
 
 		if (q == null || q.equals("")) {
 
 			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable, "");
 		} else {
-//			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable,q);
-			return this.categoryRepository.findAll((Specification<CategoryEntity>) (root, query,
-					criteriaBuilder) -> criteriaBuilder.or(
-							criteriaBuilder.like(root.get("name"), "%" + q + "%"),
-							criteriaBuilder.like(root.get("description"), "%" + q + "%")),pageable);
+			return this.categoryRepository.findAll((Specification<CategoryEntity>) (root, query,criteriaBuilder) -> {				
+				List<Predicate> predicate=new ArrayList<>();
+				for (Map.Entry<String, String> entry: serch.entrySet()) {
+					predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(entry.getKey()).as(String.class)), "%"+entry.getValue().toUpperCase()+"%"));
+				}
+				return criteriaBuilder.or(predicate.toArray(Predicate[]::new));
+				
+			},pageable);
 		}
+			
 	}
 }

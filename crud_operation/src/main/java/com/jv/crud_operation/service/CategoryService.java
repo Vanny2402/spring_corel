@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
@@ -66,7 +67,7 @@ public class CategoryService {
 		return category;
 	}
 	
-	public Page<CategoryEntity> findAll(String q,int page,int limit,Boolean isPage,String sort){
+	public Page<CategoryEntity> findAll(String q,int page,int limit,Boolean isPage,String sort)throws Exception {
 		/*if(text == null)
 			if(Objects.equals(shortName,"a-z")) return this.categoryRepository.findAllOrderByNameAscNativeQuery();
 			else return this.categoryRepository.findAllOrderByNameDescNativeQuery();
@@ -85,15 +86,30 @@ public class CategoryService {
 		}
 		*/
 		
-		
-		List<Sort.Order>lsSort= Arrays.stream(sort.split(",")).map((it)-> {
-			String direction=it.split(":")[1].toLowerCase();
-			String field=it.split(":")[0];	
+		/*List<Sort.Order>lsSort= Arrays.stream(sort.split(",")).map((it)-> {
+			String[] srt=it.split(":");
+			if(srt.length<=2) throw new BadRequestException("Invalid Sorting! ");
 			
+			
+			String direction=srt[1].toLowerCase();
+			String field=srt[0];
 			return new Sort.Order(direction.equals("desc")? Sort.Direction.DESC : Sort.Direction.ASC,field);
-		}).toList();
+			
+			
+		}).toList();*/
 		
 		
+	    List<Sort.Order>lsSort = new ArrayList<>();
+		for (String item: sort.split(",")) {
+			String [] str=item.split(":");
+			if(str.length != 2) throw new BadRequestException("Invalid Sort");
+			
+			String direction=str[1].toLowerCase();
+			String field=str[0];
+			
+			lsSort.add(new Sort.Order(direction.equals("desc")? Sort.Direction.DESC : Sort.Direction.ASC, field));
+
+		}
 		if(page<=0 || limit<=0) throw new BadRequestException("Invalid Pagination!");
 		Pageable pageable;
 		if(isPage) pageable = PageRequest.of(page-1,limit,Sort.by(lsSort));
@@ -107,10 +123,4 @@ public class CategoryService {
 			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable,q);
 		}
 	}
-	
-	
-	
-	
-	
-	
 }

@@ -50,7 +50,7 @@ public class CategoryController {
 			@RequestParam(name = "page", required = true) int page,
 			@RequestParam(name = "limit", required = true) int limit,
 			@RequestParam(name="isPage",required = false,defaultValue ="true") String isPage,
-			@RequestParam(name="sort",required = false,defaultValue = "id:desc") String sort){
+			@RequestParam(name="sort",required = false,defaultValue = "id:desc") String sort) throws Exception{
 		List<CategoryResponse> category = this.categoryService.findAll(q, page, limit,Objects.equals(isPage,"true"),sort).stream()
 				.map(CategoryResponse::fromEntity).toList();
 		return ResponseEntity.ok(category);

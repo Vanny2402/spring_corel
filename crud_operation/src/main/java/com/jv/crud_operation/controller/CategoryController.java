@@ -1,6 +1,7 @@
 package com.jv.crud_operation.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.http.ResponseEntity;
@@ -50,14 +51,15 @@ public class CategoryController {
 			@RequestParam(name = "page", required = true) int page,
 			@RequestParam(name = "limit", required = true) int limit,
 			@RequestParam(name="isPage",required = false,defaultValue ="true") String isPage,
-			@RequestParam(name="sort",required = false,defaultValue = "id:desc") String sort) throws Exception{
-		List<CategoryResponse> category = this.categoryService.findAll(q, page, limit,Objects.equals(isPage,"true"),sort).stream()
+			@RequestParam(name="sort",required = false,defaultValue = "id:desc") String sort,
+			@RequestParam Map<String,String> reqParam ) throws Exception{
+		System.out.println("Hello Key: "+reqParam.keySet());
+		System.out.println("Hello value: "+reqParam.values());
+		List<CategoryResponse> category = this.categoryService.findAll(page, limit,Objects.equals(isPage,"true"),sort,reqParam).stream()
 				.map(CategoryResponse::fromEntity).toList();
 		return ResponseEntity.ok(category);
 	}
 	
-	
-
 	@GetMapping("/{id}")
 	public ResponseEntity<CategoryResponse> findOne(@PathVariable Long id) throws NotFoundException {
 		CategoryEntity category = this.categoryService.findOne(id);

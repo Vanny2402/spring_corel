@@ -74,7 +74,8 @@ public class CategoryService {
 		return category;
 	}
 
-	public Page<CategoryEntity> findAll(String q, int page, int limit, Boolean isPage, String sort) throws Exception {
+	public Page<CategoryEntity> findAll(int page, int limit, Boolean isPage, String sort, Map<String, String> reqParam)
+			throws Exception {
 		/*
 		 * if(text == null) if(Objects.equals(shortName,"a-z")) return
 		 * this.categoryRepository.findAllOrderByNameAscNativeQuery(); else return
@@ -134,24 +135,57 @@ public class CategoryService {
 		else
 			pageable = Pageable.unpaged();
 
-		Map<String, String> serch = new HashMap<>();
-		serch.put("name", q);
-		serch.put("description", q);
-		serch.put("id",q);
+//		Map<String, String> serch = new HashMap<>();
+//		serch.put("name", q);
+//		serch.put("description", q);
+//		serch.put("id",q);
 
-		if (q == null || q.equals("")) {
-
-			return this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(pageable, "");
-		} else {
-			return this.categoryRepository.findAll((Specification<CategoryEntity>) (root, query,criteriaBuilder) -> {				
-				List<Predicate> predicate=new ArrayList<>();
-				for (Map.Entry<String, String> entry: serch.entrySet()) {
-					predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(entry.getKey()).as(String.class)), "%"+entry.getValue().toUpperCase()+"%"));
+		return this.categoryRepository.findAll((Specification<CategoryEntity>) (root, query, criteriaBuilder) -> {
+			List<Predicate> predicate = new ArrayList<>();
+			for (Map.Entry<String, String> entry : reqParam.entrySet()) {
+				if (entry.getKey().startsWith("q_")) {
+					
+					String qKey = entry.getKey().split("q_", 2)[1];
+					String qValue = entry.getValue() == null ? "" : entry.getValue();
+					predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(qKey).as(String.class)),
+							"%" + qValue.toUpperCase() + "%"));
 				}
-				return criteriaBuilder.or(predicate.toArray(Predicate[]::new));
 				
-			},pageable);
-		}
+			}
 			
+			if(predicate.size()==0) predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get("name").as(String.class)),"%"+""+"%"));
+			
+			return criteriaBuilder.or(predicate.toArray(Predicate[]::new));
+
+		}, pageable);
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -3,8 +3,9 @@ package com.jv.crud_operation.model.entity.response.category;
 import java.io.Serializable;
 
 import com.jv.crud_operation.model.entity.CategoryEntity;
+import com.jv.crud_operation.model.entity.response.infra.BaseResponse;
 
-public class CategoryResponse implements Serializable {
+public class CategoryResponse extends BaseResponse {
 
 	private String name;
 	private String description;

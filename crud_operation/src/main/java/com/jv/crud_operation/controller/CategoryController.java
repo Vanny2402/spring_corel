@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.CategoryEntity;
 import com.jv.crud_operation.model.entity.response.category.CategoryResponse;
+import com.jv.crud_operation.model.entity.response.infra.BaseBodyResponse;
+import com.jv.crud_operation.model.entity.response.infra.BaseResponse;
 import com.jv.crud_operation.model.entity.reuest.CategoryRequest;
 import com.jv.crud_operation.service.CategoryService;
 
@@ -46,18 +49,19 @@ public class CategoryController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<List<CategoryResponse>> findAll(
+	public ResponseEntity<BaseBodyResponse> findAll(
 			@RequestParam(name = "q", required = false) String q,
 			@RequestParam(name = "page", required = true) int page,
 			@RequestParam(name = "limit", required = true) int limit,
 			@RequestParam(name="isPage",required = false,defaultValue ="true") String isPage,
 			@RequestParam(name="sort",required = false,defaultValue = "id:desc") String sort,
 			@RequestParam Map<String,String> reqParam ) throws Exception{
-		System.out.println("Hello Key: "+reqParam.keySet());
-		System.out.println("Hello value: "+reqParam.values());
-		List<CategoryResponse> category = this.categoryService.findAll(page, limit,Objects.equals(isPage,"true"),sort,reqParam).stream()
-				.map(CategoryResponse::fromEntity).toList();
-		return ResponseEntity.ok(category);
+
+		
+//		List<CategoryResponse> category = this.categoryService.findAll(page, limit,Objects.equals(isPage,"true"),sort,reqParam).stream()
+//				.map(CategoryResponse::fromEntity).toList();
+		Page<BaseResponse>category=this.categoryService.findAll(page, limit, Objects.equals(isPage,"true"), sort, reqParam).map(CategoryResponse::fromEntity);
+		return BaseBodyResponse.success(category, "success");
 	}
 	
 	@GetMapping("/{id}")
@@ -73,3 +77,4 @@ public class CategoryController {
 	}
 
 }
+

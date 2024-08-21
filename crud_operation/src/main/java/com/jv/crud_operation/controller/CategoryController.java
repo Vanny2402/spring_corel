@@ -1,6 +1,5 @@
 package com.jv.crud_operation.controller;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -57,11 +56,11 @@ public class CategoryController {
 			@RequestParam(name="sort",required = false,defaultValue = "id:desc") String sort,
 			@RequestParam Map<String,String> reqParam ) throws Exception{
 
-		
 //		List<CategoryResponse> category = this.categoryService.findAll(page, limit,Objects.equals(isPage,"true"),sort,reqParam).stream()
-//				.map(CategoryResponse::fromEntity).toList();
-		Page<BaseResponse>category=this.categoryService.findAll(page, limit, Objects.equals(isPage,"true"), sort, reqParam).map(CategoryResponse::fromEntity);
-		return BaseBodyResponse.success(category, "success");
+//				.map(CategoryResponse::fromEntity).toList();		
+//		return ResponseEntity.ok(category);
+		Page<BaseResponse> category=this.categoryService.findAll(page, limit,Objects.equals(isPage,"true"), sort, reqParam).map(CategoryResponse::fromEntity);
+		return ResponseEntity.ok(BaseBodyResponse.success(category, "Success"));
 	}
 	
 	@GetMapping("/{id}")

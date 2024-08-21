@@ -1,11 +1,15 @@
 package com.jv.crud_operation.model.entity.response.infra;
 
-public class PageResponse  {
+import java.io.Serializable;
+
+public class PageResponse implements Serializable {
+
+
 	private int page;
 	private int pageSize;
 	private int totalPage;
 	private int totalCount;
-
+	
 	public int getPage() {
 		return page;
 	}
@@ -18,7 +22,6 @@ public class PageResponse  {
 	public int getTotalCount() {
 		return totalCount;
 	}
-
 	
 	public PageResponse(int page, int pageSize, int totalPage, int totalCount) {
 		this.page = page;
@@ -26,4 +29,5 @@ public class PageResponse  {
 		this.totalPage = totalPage;
 		this.totalCount = totalCount;
 	}
+
 }

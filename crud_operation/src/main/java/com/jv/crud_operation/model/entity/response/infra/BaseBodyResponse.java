@@ -4,37 +4,34 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 
 public class BaseBodyResponse implements Serializable {
 
-	private List<BaseResponse>data;
+	private List<BaseResponse> data;
 	private PageResponse page;
-	private Object status;
+	private StatusResponse status;
+	
+	public PageResponse getPage() {
+		return page;
+	}
+	public StatusResponse getStatus() {
+		return status;
+	}
 	
 	public List<BaseResponse> getData() {
 		return data;
 	}
-	public PageResponse getPage() {
-		return page;
-	}
-	public Object getStatus() {
-		return status;
-	}
 	
-	public BaseBodyResponse(List<BaseResponse> data, PageResponse page, Object status) {
+	public BaseBodyResponse(List<BaseResponse> data, PageResponse page, StatusResponse status) {
 		this.data = data;
 		this.page = page;
 		this.status = status;
 	}
-	
-	public static ResponseEntity<BaseBodyResponse> success (Page<BaseResponse> response,String message){
-		
-		List<BaseResponse>data=response.getContent();
-		PageResponse page=new PageResponse(response.getNumber()+1,response.getSize(),response.getTotalPages(),(int)response.getTotalElements());
-		StatusResponse status=new StatusResponse(message,(short)200);
-		
-		return ResponseEntity.ok(new BaseBodyResponse(data, page, status));
+
+	public static BaseBodyResponse success(Page<BaseResponse> resonse,String message){
+		List<BaseResponse>data=resonse.getContent();
+		PageResponse page=new PageResponse(resonse.getNumber()+1,resonse.getSize(),resonse.getTotalPages(),(int) resonse.getTotalElements());
+		StatusResponse status=new StatusResponse(message,(short) 200);
+		return new BaseBodyResponse(data,page, status);
 	}
-	
 }

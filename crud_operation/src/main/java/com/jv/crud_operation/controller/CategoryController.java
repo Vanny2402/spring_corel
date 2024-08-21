@@ -1,6 +1,5 @@
 package com.jv.crud_operation.controller;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -35,17 +34,17 @@ public class CategoryController {
 	}
 
 	@PostMapping("")
-	public ResponseEntity<CategoryResponse> creat(@RequestBody CategoryRequest request) throws Exception {
+	public ResponseEntity<BaseBodyResponse> creat(@RequestBody CategoryRequest request) throws Exception {
 		CategoryEntity category = this.categoryService.create(request);
-		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
+		return BaseBodyResponse.success(CategoryResponse.fromEntity(category),"Succcess Created!");
+		//		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoryResponse> update(@PathVariable Long id, @RequestBody CategoryRequest request)
+	public ResponseEntity<BaseBodyResponse> update(@PathVariable Long id, @RequestBody CategoryRequest request)
 			throws NotFoundException {
-
 		CategoryEntity category = this.categoryService.update(id, request);
-		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
+		return BaseBodyResponse.success(CategoryResponse.fromEntity(category), "Updated Success!");
 	}
 
 	@GetMapping("")
@@ -56,8 +55,6 @@ public class CategoryController {
 			@RequestParam(name="isPage",required = false,defaultValue ="true") String isPage,
 			@RequestParam(name="sort",required = false,defaultValue = "id:desc") String sort,
 			@RequestParam Map<String,String> reqParam ) throws Exception{
-
-		
 //		List<CategoryResponse> category = this.categoryService.findAll(page, limit,Objects.equals(isPage,"true"),sort,reqParam).stream()
 //				.map(CategoryResponse::fromEntity).toList();
 		Page<BaseResponse>category=this.categoryService.findAll(page, limit, Objects.equals(isPage,"true"), sort, reqParam).map(CategoryResponse::fromEntity);

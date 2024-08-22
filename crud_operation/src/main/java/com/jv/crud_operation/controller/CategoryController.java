@@ -28,6 +28,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @Tag(name = "Backend Category Controller", description = "Testing")
 @RestController
@@ -41,7 +42,7 @@ public class CategoryController {
 	}
 
 	@PostMapping("")
-	public ResponseEntity<BaseBodyResponse> creat(@RequestBody CategoryRequest request) throws Exception {
+	public ResponseEntity<BaseBodyResponse> creat(@Valid @RequestBody CategoryRequest request) throws Exception {
 		CategoryEntity category = this.categoryService.create(request);
 		return BaseBodyResponse.success(CategoryResponse.fromEntity(category), "Succcess Created!");
 		// return ResponseEntity.ok(CategoryResponse.fromEntity(category));

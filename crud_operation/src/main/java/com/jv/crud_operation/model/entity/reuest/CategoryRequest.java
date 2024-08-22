@@ -6,13 +6,20 @@ import com.jv.crud_operation.model.entity.CategoryEntity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class CategoryRequest implements Serializable {
 	
 //	@Schema(name = "nm")
 //	@JsonProperty("nm")
-	@Schema(requiredMode =RequiredMode.REQUIRED,example = "test" )
+	@Schema(requiredMode =RequiredMode.REQUIRED,example = "test",maxLength = 30)
+	@NotNull(message = "this is not null")
+	@Size(max = 30,min = 1,message = "this is not null")
 	private String name;
+	
+	@Schema(example = "testDescription",maxLength = 100,nullable = true)
 	private String description;
 	public String getName() {
 		return name;

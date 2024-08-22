@@ -4,8 +4,14 @@ import java.io.Serializable;
 
 import com.jv.crud_operation.model.entity.CategoryEntity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+
 public class CategoryRequest implements Serializable {
 	
+//	@Schema(name = "nm")
+//	@JsonProperty("nm")
+	@Schema(requiredMode =RequiredMode.REQUIRED,example = "test" )
 	private String name;
 	private String description;
 	public String getName() {

@@ -17,7 +17,7 @@ public class OpenApiConfiguration {
 	
 	@Bean
 	public GroupedOpenApi fornEndGroup() {
-		return GroupedOpenApi.builder().group("frontEnd-api").addOpenApiCustomizer(openApi-> openApi.info(getBanendApiInfo())).packagesToScan("com.jv.crud_operation").build();
+		return GroupedOpenApi.builder().group("frontEnd-api").addOpenApiCustomizer(openApi-> openApi.info(getBanendApiInfo())).packagesToScan("com.jv.crud_operation.ljskdf").build();
 	}
 	
 	private Info getBanendApiInfo() {

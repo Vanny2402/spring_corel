@@ -1,21 +1,18 @@
 package com.jv.crud_operation.service;
 
-import java.util.List;
-import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.jv.crud_operation.exception.AlreadyExistException;
 import com.jv.crud_operation.exception.BadRequestException;
 import com.jv.crud_operation.exception.NotFoundException;
-import com.jv.crud_operation.model.entity.AddressEntity;
 import com.jv.crud_operation.model.entity.UserEntity;
 import com.jv.crud_operation.model.entity.reuest.user.UserEntityRequuest;
 import com.jv.crud_operation.model.entity.reuest.user.UserLoginRequest;
-import com.jv.crud_operation.repository.AddressRepository;
 import com.jv.crud_operation.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -47,8 +44,9 @@ public class UserService {
 		}
 	}
 
-	public List<UserEntity> findAll() {
-		return this.userRepository.findAll();
+	public Page<UserEntity> findAll(int pageN,int limit,String shortby) {
+		Pageable pageable = PageRequest.of(pageN-1,limit, Sort.by(shortby).descending());
+		return this.userRepository.findAll(pageable);
 	}
 
 	public UserEntity findOne(Long id) throws NotFoundException {

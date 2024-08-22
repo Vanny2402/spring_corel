@@ -1,8 +1,8 @@
 package com.jv.crud_operation.model.entity.response.address;
 
-import java.io.Serializable;
+import com.jv.crud_operation.model.entity.response.infra.BaseResponse;
 
-public class AddressResponse implements Serializable {
+public class AddressResponse extends BaseResponse {
 
 	public String getAddress() {
 		return address;

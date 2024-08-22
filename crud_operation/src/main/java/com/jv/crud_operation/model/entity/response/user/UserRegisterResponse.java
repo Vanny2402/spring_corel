@@ -1,11 +1,10 @@
 package com.jv.crud_operation.model.entity.response.user;
 
-import java.io.Serializable;
-
 import com.jv.crud_operation.model.entity.UserEntity;
 import com.jv.crud_operation.model.entity.response.address.AddressResponse;
+import com.jv.crud_operation.model.entity.response.infra.BaseResponse;
 
-public class UserRegisterResponse implements Serializable{
+public class UserRegisterResponse extends BaseResponse{
 	
 	private Long id;
 	private String username;

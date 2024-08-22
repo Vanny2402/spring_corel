@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jv.crud_operation.exception.BadRequestException;
 import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.UserEntity;
+import com.jv.crud_operation.model.entity.response.infra.BaseBodyResponse;
+import com.jv.crud_operation.model.entity.response.infra.BaseResponse;
 import com.jv.crud_operation.model.entity.response.user.UserLoginResponse;
 import com.jv.crud_operation.model.entity.response.user.UserRegisterResponse;
 import com.jv.crud_operation.model.entity.reuest.user.UserEntityRequuest;
@@ -33,16 +37,20 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<UserRegisterResponse>>findAll(){
-		
-		List<UserRegisterResponse> data=userService.findAll().stream().map(UserRegisterResponse::fromEntity).toList();
-		return ResponseEntity.ok(data);
+//	public ResponseEntity<List<UserRegisterResponse>>findAll(){
+//		
+//		List<UserRegisterResponse> data=userService.findAll().stream().map(UserRegisterResponse::fromEntity).toList();
+//		return ResponseEntity.ok(data);
+//	}
+	public ResponseEntity<BaseBodyResponse> findall(@RequestParam int pageN,@RequestParam int limit,@RequestParam String shortby){
+		Page<BaseResponse> list = this.userService.findAll(pageN,limit,shortby).map(UserRegisterResponse::fromEntity);
+		return BaseBodyResponse.success(list, "Success!");
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<UserRegisterResponse>findOne(@PathVariable Long id) throws NotFoundException{
 		UserEntity data = this.userService.findOne(id);
-		
+
 		return ResponseEntity.ok(UserRegisterResponse.fromEntity(data));
 	} 
 

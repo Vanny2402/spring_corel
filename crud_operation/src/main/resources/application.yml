@@ -22,6 +22,8 @@ logging:
     root: info
     org.hibernate.SQL: debug  
     org.hibernate.type.descriptor.sql.BasicBinder: trace 
-
+springdoc:
+  api-docs:
+    enabled: true
 server:
   port: 8090

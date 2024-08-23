@@ -1,5 +1,7 @@
 package com.jv.crud_operation.model.entity;
 
+import com.jv.crud_operation.model.entity.response.infra.BaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,11 +15,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="address")
-public class AddressEntity {
+public class AddressEntity extends BaseEntity{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	
 	@Column(length = 100,nullable = false)
 	private String address;
@@ -34,15 +33,6 @@ public class AddressEntity {
 	@JoinColumn(name="userId",nullable = false,referencedColumnName = "id")
 //	@MapsId
 	private UserEntity user;
-	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getAddress() {
 		return address;

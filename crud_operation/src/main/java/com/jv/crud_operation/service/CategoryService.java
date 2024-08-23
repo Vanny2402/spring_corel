@@ -1,6 +1,7 @@
 package com.jv.crud_operation.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +54,6 @@ public class CategoryService {
 		// #1 To find if Category exist or not
 		CategoryEntity dataFilter = categoryRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Category is not exsit"));
-		// #2 Update data
-//		dataFilter.setName(request.getName());
-//		dataFilter.setDescription(request.getDescription());
 		dataFilter.setName(request.getName() == null ? dataFilter.getName() : request.getName());
 		dataFilter.setDescription(
 				request.getDescription() == null ? dataFilter.getDescription() : request.getDescription());
@@ -70,51 +68,13 @@ public class CategoryService {
 	public CategoryEntity delete(Long id) throws NotFoundException {
 		// #1 To find Category
 		CategoryEntity category = findOne(id);
-		this.categoryRepository.deleteById(category.getId());
+//		this.categoryRepository.deleteById(category.getId());
+		category.setDeletedAt(new Date());
+		this.categoryRepository.save(category);
 		return category;
 	}
 
-	public Page<CategoryEntity> findAll(int page, int limit, Boolean isPage, String sort, Map<String, String> reqParam)
-			throws Exception {
-		/*
-		 * if(text == null) if(Objects.equals(shortName,"a-z")) return
-		 * this.categoryRepository.findAllOrderByNameAscNativeQuery(); else return
-		 * this.categoryRepository.findAllOrderByNameDescNativeQuery(); else
-		 * if(Objects.equals(shortName,"a-z")) return
-		 * this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(text)
-		 * ; else return
-		 * this.categoryRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(text
-		 * );
-		 */
-
-		/*
-		 * if(text==null || text.equals("")){ if(Objects.equals(shortName, "a-z"))
-		 * return
-		 * this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.
-		 * by(Sort.Direction.ASC,"name")); else return
-		 * this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase("",Sort.
-		 * by(Sort.Direction.DESC,"name")); } else { if(Objects.equals(shortName,
-		 * "a-z")) return
-		 * this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort
-		 * .by(Sort.Direction.ASC,"name")); else return
-		 * this.categoryRepository.findAllCategoriesByNameContainingIgnoreCase(text,Sort
-		 * .by(Sort.Direction.DESC,"name")); }
-		 */
-
-		/*
-		 * List<Sort.Order>lsSort= Arrays.stream(sort.split(",")).map((it)-> { String[]
-		 * srt=it.split(":"); if(srt.length<=2) throw new
-		 * BadRequestException("Invalid Sorting! ");
-		 * 
-		 * 
-		 * String direction=srt[1].toLowerCase(); String field=srt[0]; return new
-		 * Sort.Order(direction.equals("desc")? Sort.Direction.DESC :
-		 * Sort.Direction.ASC,field);
-		 * 
-		 * 
-		 * }).toList();
-		 */
-
+	public Page<CategoryEntity> findAll(int page, int limit, Boolean isPage, String sort, Map<String, String> reqParam){
 		List<Sort.Order> lsSort = new ArrayList<>();
 		for (String item : sort.split(",")) {
 			String[] str = item.split(":");
@@ -135,11 +95,6 @@ public class CategoryService {
 		else
 			pageable = Pageable.unpaged();
 
-//		Map<String, String> serch = new HashMap<>();
-//		serch.put("name", q);
-//		serch.put("description", q);
-//		serch.put("id",q);
-
 		return this.categoryRepository.findAll((Specification<CategoryEntity>) (root, query, criteriaBuilder) -> {
 			List<Predicate> predicate = new ArrayList<>();
 			for (Map.Entry<String, String> entry : reqParam.entrySet()) {
@@ -154,8 +109,8 @@ public class CategoryService {
 			}
 			
 			if(predicate.size()==0) predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get("name").as(String.class)),"%"+""+"%"));
-			
-			return criteriaBuilder.or(predicate.toArray(Predicate[]::new));
+			return criteriaBuilder.and(criteriaBuilder.isNull(root.get("deletedAt")),criteriaBuilder.or(predicate.toArray(Predicate[]:: new)));
+//			return criteriaBuilder.or(predicate.toArray(Predicate[]::new));
 
 		}, pageable);
 	}

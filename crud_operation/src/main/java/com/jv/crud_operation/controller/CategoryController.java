@@ -40,11 +40,14 @@ public class CategoryController {
 	public CategoryController(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-
+	@Operation(summary = "Create Category!", description = "Admin craete Category", responses = {
+			@ApiResponse(responseCode = "201", description = "Create Success", content = @Content(schema = @Schema(implementation = CategoryResponse.class), mediaType = "application/json")),
+			@ApiResponse(responseCode = "400-500", description = "Error", content = @Content(schema = @Schema(implementation = CategoryResponse.class), mediaType = "application/json"))}
+			)
 	@PostMapping("")
 	public ResponseEntity<BaseBodyResponse> creat(@Valid @RequestBody CategoryRequest request) throws Exception {
 		CategoryEntity category = this.categoryService.create(request);
-		return BaseBodyResponse.success(CategoryResponse.fromEntity(category), "Succcess Created!");
+		return BaseBodyResponse.createsuccess(CategoryResponse.fromEntity(category), "Succcess Created!");
 		// return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
 
@@ -55,22 +58,23 @@ public class CategoryController {
 		return BaseBodyResponse.success(CategoryResponse.fromEntity(category), "Updated Success!");
 	}
 
+	
 	@GetMapping("")
-	public ResponseEntity<BaseBodyResponse> findAll(@RequestParam(name = "q", required = false) String q,
-			@RequestParam(name = "page", required = true) int page,
-			@RequestParam(name = "limit", required = true) int limit,
-			@RequestParam(name = "isPage", required = false, defaultValue = "true") String isPage,
+	public ResponseEntity<BaseBodyResponse> findAll(
+			@RequestParam(name = "page", required = true,defaultValue = "1") int page,
+			@RequestParam(name = "limit", required = true,defaultValue = "3") int limit,
+			@RequestParam(name = "isPage", required = false, defaultValue = "true") Boolean isPage,
 			@RequestParam(name = "sort", required = false, defaultValue = "id:desc") String sort,
-			@RequestParam Map<String, String> reqParam) throws Exception {
+			@RequestParam Map<String, String> reqParam_serch) throws Exception {
 //		List<CategoryResponse> category = this.categoryService.findAll(page, limit,Objects.equals(isPage,"true"),sort,reqParam).stream()
 //				.map(CategoryResponse::fromEntity).toList();
 		Page<BaseResponse> category = this.categoryService
-				.findAll(page, limit, Objects.equals(isPage, "true"), sort, reqParam).map(CategoryResponse::fromEntity);
+				.findAll(page, limit,isPage, sort, reqParam_serch).map(CategoryResponse::fromEntity);
 		return BaseBodyResponse.success(category, "success");
 	}
 
 	@Operation(summary = "Hello Brother I love you !", description = "Hi Brother!", responses = {
-			@ApiResponse(responseCode = "300", description = "Success Man", content = @Content(schema = @Schema(implementation = CategoryResponse.class), mediaType = "application/json")) })
+			@ApiResponse(responseCode = "200", description = "Success Man", content = @Content(schema = @Schema(implementation = CategoryResponse.class), mediaType = "application/json")) })
 	@GetMapping("/{id}")
 	public ResponseEntity<CategoryResponse> findOne(@PathVariable Long id) throws NotFoundException {
 		CategoryEntity category = this.categoryService.findOne(id);

@@ -41,13 +41,17 @@ public class BaseBodyResponse implements Serializable {
 		if(response.getPageable().isUnpaged()) page = null;
 		else page=new PageResponse(response.getNumber()+1,response.getSize(),response.getTotalPages(),(int)response.getTotalElements());
 		StatusResponse status=new StatusResponse(message,(short)200);
-		
 		return ResponseEntity.ok(new BaseBodyResponse(data, page, status));
 	}
 	
 	
 	public static ResponseEntity<BaseBodyResponse> success(BaseResponse response,String message){
 		StatusResponse status=new StatusResponse(message,(short)200);
+		return ResponseEntity.ok(new BaseBodyResponse(response, null, status));
+	}
+	
+	public static ResponseEntity<BaseBodyResponse> createsuccess(BaseResponse response,String message){
+		StatusResponse status=new StatusResponse(message,(short)201);
 		return ResponseEntity.ok(new BaseBodyResponse(response, null, status));
 	}
 	

@@ -3,7 +3,9 @@ package com.jv.crud_operation.model.entity.response.infra;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -27,6 +29,34 @@ public abstract class BaseAuditEntity<ID extends Serializable> extends BaseEntit
     @LastModifiedDate
     private Date updatedAt;
     
+    
+	@Column(length = 30,updatable = false)
+    @CreatedBy
+    private String createdBy;
+    
+    @Column(length = 30,insertable  = false)
+    @LastModifiedBy
+    private String modifyBy;
+    
+  
+    public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifyBy() {
+		return modifyBy;
+	}
+
+	public void setModifyBy(String modifyBy) {
+		this.modifyBy = modifyBy;
+	}
+
+
+
     
     public Date getCreatedDate() {
         return createdDate;

@@ -3,15 +3,13 @@ package com.jv.crud_operation.model.entity;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jv.crud_operation.model.entity.response.infra.BaseEntity;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -20,12 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="products")
-public class ProductEnitty {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+public class ProductEnitty extends BaseEntity{	
 	@Column(length = 50,nullable = false)
 	private String name;
 	
@@ -40,15 +33,6 @@ public class ProductEnitty {
 	@JsonIgnore
 	@OrderBy("tagName DESC")
 	private Set<TagEntity> tags;
-	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

@@ -1,5 +1,7 @@
 package com.jv.crud_operation.model.entity;
 
+import com.jv.crud_operation.model.entity.response.infra.BaseEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,26 +14,12 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="users")
-public class UserEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+public class UserEntity extends BaseEntity{	
 	@Column(nullable = false,length = 30)
 	private String username;
 
 	@OneToOne(mappedBy = "user",cascade = {CascadeType.MERGE,CascadeType.REMOVE,CascadeType.PERSIST},orphanRemoval = true)
 	private AddressEntity address;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getUsername() {
 		return username;
 	}

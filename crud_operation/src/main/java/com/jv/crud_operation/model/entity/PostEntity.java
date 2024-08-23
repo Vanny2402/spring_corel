@@ -2,23 +2,17 @@ package com.jv.crud_operation.model.entity;
 
 import java.util.List;
 
+import com.jv.crud_operation.model.entity.response.infra.BaseEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="posts")
-public class PostEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+public class PostEntity extends BaseEntity{	
 	@Column(length = 50,nullable = false)
 	private String title;
 	
@@ -28,14 +22,6 @@ public class PostEntity {
 	
 	@OneToMany(mappedBy = "post",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<PostCommentEntity> postComments;
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getTitle() {
 		return title;

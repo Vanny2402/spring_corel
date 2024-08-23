@@ -2,23 +2,20 @@ package com.jv.crud_operation.model.entity;
 
 import java.util.List;
 
+import com.jv.crud_operation.model.entity.response.infra.BaseEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="orders")
-public class OrderEntity {
+public class OrderEntity extends BaseEntity{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+
 	@Column(name="customerName",length = 30)
 	private String customerName;
 	
@@ -27,15 +24,6 @@ public class OrderEntity {
 	
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderDetail> orderDetails;
-	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getCustomerName() {
 		return customerName;

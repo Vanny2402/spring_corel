@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="postComments")
-public class PostCommentEntity extends BaseEntity{
+public class PostCommentEntity extends BaseEntity<Long>{
 
 	@Column(nullable = false,length = 250)
 	private String comment;

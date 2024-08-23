@@ -1,7 +1,7 @@
 package com.jv.crud_operation.model.entity;
 
 import com.jv.crud_operation.model.entity.listener.CategoryEntityListener;
-import com.jv.crud_operation.model.entity.response.infra.BaseEntity;
+import com.jv.crud_operation.model.entity.response.infra.BaseAuditEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="category")
 @EntityListeners(CategoryEntityListener.class)
-public class CategoryEntity extends BaseEntity {
+public class CategoryEntity extends BaseAuditEntity<Long> {
 
 	
 	@Column(nullable = false,unique = true)

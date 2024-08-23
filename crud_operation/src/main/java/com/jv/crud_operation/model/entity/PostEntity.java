@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="posts")
-public class PostEntity extends BaseEntity{	
+public class PostEntity extends BaseEntity<Long>{	
 	@Column(length = 50,nullable = false)
 	private String title;
 	

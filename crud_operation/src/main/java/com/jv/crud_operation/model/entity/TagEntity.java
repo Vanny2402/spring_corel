@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="tags")
-public class TagEntity extends BaseEntity{	
+public class TagEntity extends BaseEntity<Long>{	
 	@Column(length = 15,nullable = false,unique = true)
 	private String tagName;
 	

@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="products")
-public class ProductEnitty extends BaseEntity{	
+public class ProductEnitty extends BaseEntity<Long>{	
 	@Column(length = 50,nullable = false)
 	private String name;
 	

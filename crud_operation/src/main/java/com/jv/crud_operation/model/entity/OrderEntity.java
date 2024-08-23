@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="orders")
-public class OrderEntity extends BaseEntity{
+public class OrderEntity extends BaseEntity<Long>{
 
 
 	@Column(name="customerName",length = 30)

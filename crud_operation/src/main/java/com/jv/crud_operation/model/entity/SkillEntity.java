@@ -1,5 +1,9 @@
 package com.jv.crud_operation.model.entity;
 
+import java.util.Date;
+
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SQLDelete;
 
 import com.jv.crud_operation.model.entity.response.infra.BaseSoftDeleteEntity;
@@ -11,6 +15,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="skills")
 @SQLDelete(sql="Update skills SET deleted_at = NOW() where id=?")
+//@Where(clause = "deleted_at IS NULL")
+@FilterDef(name = "deletedAt",parameters = @ParamDef(name="isDeleted",type = Date.class))
+//@Filter(name="deletedAt",condition = "deleted_at= :isDeleted")
 public class SkillEntity extends BaseSoftDeleteEntity<Long> {
 
 	

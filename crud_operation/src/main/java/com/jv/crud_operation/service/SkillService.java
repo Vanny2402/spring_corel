@@ -36,11 +36,10 @@ public class SkillService {
 		// Prepare request
 		SkillEntity data = request.toEntity();
 		// check name from request if exist in database or not
-		if (this.skillRepository.existsByNameAndDeletedAtIsNull(data.getName())) {
-//			throw new Exception("Category name already exist! ");
-			throw new AlreadyExistException("Category name " + request.getName() + " already exist! ");
+		if (this.skillRepository.existsByName(data.getName())) {
+		//throw new Exception("Category name already exist! ");
+			throw new AlreadyExistException("Skill name " + request.getName() + " already exist! ");
 		}
-
 		// Save Data
 		try {
 			return skillRepository.save(request.toEntity());
@@ -54,8 +53,8 @@ public class SkillService {
 	public SkillEntity update(Long id, Skillrequest request) throws Exception {
 		// #1 To find if Category exist or not
 		SkillEntity dataFilter = this.findOne(id);
-		if (this.skillRepository.existsByNameAndDeletedAtIsNull(request.getName())) {
-			throw new AlreadyExistException("Category name: " + request.getName() + " Alredy exist!");
+		if (this.skillRepository.existsByName(request.getName())) {
+			throw new AlreadyExistException("Skill name: " + request.getName() + " Alredy exist!");
 		} else {
 			dataFilter.setName(request.getName() == null ? dataFilter.getName() : request.getName());
 			dataFilter.setDescription(
@@ -65,12 +64,12 @@ public class SkillService {
 	}
 
 	public SkillEntity findOne(Long id) throws NotFoundException {
-		return this.skillRepository.findByIdAndDeletedAtIsNull(id)
-				.orElseThrow(() -> new NotFoundException("This is category is not exist"));
+		return this.skillRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("This Skill is not exist"));
 	}
 
 	private SkillEntity findOneWithSoftDeleted(Long id) throws Exception {
-		return this.skillRepository.findById(id).orElseThrow(() -> new NotFoundException("Category not found!"));
+		return this.skillRepository.findById(id).orElseThrow(() -> new NotFoundException("Skill not found!"));
 
 	}
 
@@ -78,7 +77,7 @@ public class SkillService {
 		// 1.Get category from DB by id
 		SkillEntity category = this.findOneWithSoftDeleted(id);
 		// 2.Check name from request if exist or not in DB
-		if (this.skillRepository.existsByNameAndDeletedAtIsNull(request.getName()))
+		if (this.skillRepository.existsByName(request.getName()))
 			throw new AlreadyExistException("Name " + request.getName() + " already Exist!");
 		// 2.remove deleted_at null value
 		category.setDeletedAt(null);
@@ -109,12 +108,9 @@ public class SkillService {
 			String[] str = item.split(":");
 			if (str.length != 2)
 				throw new BadRequestException("Invalid Sort");
-
 			String direction = str[1].toLowerCase();
 			String field = str[0];
-
 			lsSort.add(new Sort.Order(direction.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC, field));
-
 		}
 		if (page <= 0 || limit <= 0)
 			throw new BadRequestException("Invalid Pagination!");
@@ -134,7 +130,6 @@ public class SkillService {
 					predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(qKey).as(String.class)),
 							"%" + qValue.toUpperCase() + "%"));
 				}
-
 			}
 			if (predicate.size() == 0)
 				predicate.add(

@@ -8,7 +8,6 @@ public class AccountRequest implements Serializable {
 
 	private Double balance;
 	private String name;
-	private Long id;
 	
 	public Double getBalance() {
 		return balance;
@@ -19,13 +18,6 @@ public class AccountRequest implements Serializable {
 	}
 
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
 	public String getName() {
 		return name;
@@ -38,7 +30,6 @@ public class AccountRequest implements Serializable {
 	public AccountEntity toEntity() {
 		
 		AccountEntity account=new AccountEntity();
-		account.setId(this.id);
 		account.setBalance(this.balance);
 		account.setName(this.name);
 		return account;

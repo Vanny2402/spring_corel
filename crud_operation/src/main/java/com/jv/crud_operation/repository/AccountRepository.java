@@ -7,6 +7,6 @@ import com.jv.crud_operation.model.entity.AccountEntity;
 
 @Repository
 public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
-	boolean existsByTagName(String TagName);
+	boolean existsByNameAndDeletedAtIsNull(String TagName);
 	
 }

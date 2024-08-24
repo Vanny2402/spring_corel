@@ -16,6 +16,7 @@ import com.jv.crud_operation.model.entity.CategoryEntity;
 public interface CategoryRepository extends  JpaRepository<CategoryEntity,Long>,JpaSpecificationExecutor<CategoryEntity> {
 	
 	boolean existsByName(String name);
+	boolean existsByNameAndDeletedAtIsNull(String name);
 	
 	@Query("SELECT c FROM CategoryEntity c WHERE UPPER(c.name) LIKE UPPER(CONCAT('%', :text, '%')) OR UPPER(c.description) LIKE UPPER(CONCAT('%', :text, '%'))")
 	List<CategoryEntity>findAllByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(@Param("text")String name);

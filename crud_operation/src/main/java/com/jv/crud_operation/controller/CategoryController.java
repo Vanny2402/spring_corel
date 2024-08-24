@@ -53,7 +53,7 @@ public class CategoryController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<BaseBodyResponse> update(@PathVariable Long id, @RequestBody CategoryRequest request)
-			throws NotFoundException {
+			throws Exception {
 		CategoryEntity category = this.categoryService.update(id, request);
 		return BaseBodyResponse.success(CategoryResponse.fromEntity(category), "Updated Success!");
 	}

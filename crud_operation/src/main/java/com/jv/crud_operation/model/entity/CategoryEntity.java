@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class CategoryEntity extends BaseSoftDeleteEntity<Long> {
 
 	
-	@Column(nullable = false,unique = true)
+	@Column(nullable = false)
 	private String name;
 	
 	@Column(length =  100)

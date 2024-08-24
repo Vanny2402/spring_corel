@@ -34,9 +34,9 @@ public class CategoryService {
 		// Prepare request
 		CategoryEntity data = request.toEntity();
 		// check name from request if exist in database or not
-		if (this.categoryRepository.existsByName(data.getName())) {
+		if (this.categoryRepository.existsByNameAndDeletedAtIsNull(data.getName())) {
 //			throw new Exception("Category name already exist! ");
-			throw new AlreadyExistException("Category name already exist! ");
+			throw new AlreadyExistException("Category name "+request.getName()+" already exist! ");
 		}
 
 		// Save Data
@@ -49,13 +49,16 @@ public class CategoryService {
 
 	}
 
-	public CategoryEntity update(Long id, CategoryRequest request) throws NotFoundException {
+	public CategoryEntity update(Long id, CategoryRequest request) throws Exception {
 		// #1 To find if Category exist or not
-		CategoryEntity dataFilter = categoryRepository.findByIdAndDeletedAtIsNull(id)
-				.orElseThrow(() -> new NotFoundException("Category is not exsit"));
-		dataFilter.setName(request.getName() == null ? dataFilter.getName() : request.getName());
-		dataFilter.setDescription(
-				request.getDescription() == null ? dataFilter.getDescription() : request.getDescription());
+		CategoryEntity dataFilter =this.findOne(id);
+		if(this.categoryRepository.existsByNameAndDeletedAtIsNull(request.getName())) {
+			throw new AlreadyExistException("Category name: "+request.getName() + " Alredy exist!");
+		}else {
+			dataFilter.setName(request.getName() == null ? dataFilter.getName() : request. getName());
+			dataFilter.setDescription(
+					request.getDescription() == null ? dataFilter.getDescription() : request.getDescription());
+		}
 		return this.categoryRepository.save(dataFilter);
 	}
 

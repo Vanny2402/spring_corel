@@ -16,6 +16,7 @@ import com.jv.crud_operation.exception.AlreadyExistException;
 import com.jv.crud_operation.exception.BadRequestException;
 import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.SkillEntity;
+import com.jv.crud_operation.model.entity.response.category.RestoreSkillRequest;
 import com.jv.crud_operation.model.entity.reuest.RestoerCategoryRequest;
 import com.jv.crud_operation.model.entity.reuest.skill.Skillrequest;
 import com.jv.crud_operation.repository.SkillRepository;
@@ -37,7 +38,7 @@ public class SkillService {
 		// check name from request if exist in database or not
 		if (this.skillRepository.existsByNameAndDeletedAtIsNull(data.getName())) {
 //			throw new Exception("Category name already exist! ");
-			throw new AlreadyExistException("Category name "+request.getName()+" already exist! ");
+			throw new AlreadyExistException("Category name " + request.getName() + " already exist! ");
 		}
 
 		// Save Data
@@ -52,11 +53,11 @@ public class SkillService {
 
 	public SkillEntity update(Long id, Skillrequest request) throws Exception {
 		// #1 To find if Category exist or not
-		SkillEntity dataFilter =this.findOne(id);
-		if(this.skillRepository.existsByNameAndDeletedAtIsNull(request.getName())) {
-			throw new AlreadyExistException("Category name: "+request.getName() + " Alredy exist!");
-		}else {
-			dataFilter.setName(request.getName() == null ? dataFilter.getName() : request. getName());
+		SkillEntity dataFilter = this.findOne(id);
+		if (this.skillRepository.existsByNameAndDeletedAtIsNull(request.getName())) {
+			throw new AlreadyExistException("Category name: " + request.getName() + " Alredy exist!");
+		} else {
+			dataFilter.setName(request.getName() == null ? dataFilter.getName() : request.getName());
 			dataFilter.setDescription(
 					request.getDescription() == null ? dataFilter.getDescription() : request.getDescription());
 		}
@@ -69,36 +70,39 @@ public class SkillService {
 	}
 
 	private SkillEntity findOneWithSoftDeleted(Long id) throws Exception {
-		return this.skillRepository.findById(id).orElseThrow(()-> new NotFoundException("Category not found!"));
-		
+		return this.skillRepository.findById(id).orElseThrow(() -> new NotFoundException("Category not found!"));
+
 	}
-	
-	public SkillEntity restore(Long id,RestoerCategoryRequest request) throws Exception{
-		//1.Get category from DB by id
-		SkillEntity category=this.findOneWithSoftDeleted(id);
-		//2.Check name from request if exist or not in DB
-		if(this.skillRepository.existsByNameAndDeletedAtIsNull(request.getName()))
-			throw new AlreadyExistException("Name "+request.getName()+" already Exist!");
-		//2.remove deleted_at null value
+
+	public SkillEntity restore(Long id, RestoreSkillRequest request) throws Exception {
+		// 1.Get category from DB by id
+		SkillEntity category = this.findOneWithSoftDeleted(id);
+		// 2.Check name from request if exist or not in DB
+		if (this.skillRepository.existsByNameAndDeletedAtIsNull(request.getName()))
+			throw new AlreadyExistException("Name " + request.getName() + " already Exist!");
+		// 2.remove deleted_at null value
 		category.setDeletedAt(null);
 		category.setName(request.getName());
 		try {
-			
+
 			return this.skillRepository.save(category);
 		} catch (Exception e) {
-			throw new  Exception(e);
+			throw new Exception(e);
 		}
 	}
-	public SkillEntity delete(Long id) throws NotFoundException {
-		// #1 To find Category
-		SkillEntity category = findOne(id);
-//		this.categoryRepository.deleteById(category.getId());
-		category.setDeletedAt(new Date());
-		this.skillRepository.save(category);
-		return category;
+
+	public SkillEntity delete(Long id) throws Exception {
+		SkillEntity skill = findOne(id);
+		try {
+			this.skillRepository.deleteById(id);
+		} catch (Exception e) {
+
+			throw new Exception(e);
+		}
+		return skill;
 	}
 
-	public Page<SkillEntity> findAll(int page, int limit, Boolean isPage, String sort,Boolean isTrash,
+	public Page<SkillEntity> findAll(int page, int limit, Boolean isPage, String sort, Boolean isTrash,
 			Map<String, String> reqParam) {
 		List<Sort.Order> lsSort = new ArrayList<>();
 		for (String item : sort.split(",")) {
@@ -135,7 +139,9 @@ public class SkillService {
 			if (predicate.size() == 0)
 				predicate.add(
 						criteriaBuilder.like(criteriaBuilder.upper(root.get("name").as(String.class)), "%" + "" + "%"));
-			return criteriaBuilder.and(isTrash ? criteriaBuilder.isNotNull(root.get("deletedAt")):criteriaBuilder.isNull(root.get("deletedAt")),
+			return criteriaBuilder.and(
+					isTrash ? criteriaBuilder.isNotNull(root.get("deletedAt"))
+							: criteriaBuilder.isNull(root.get("deletedAt")),
 					criteriaBuilder.or(predicate.toArray(Predicate[]::new)));
 //			return criteriaBuilder.or(predicate.toArray(Predicate[]::new));
 

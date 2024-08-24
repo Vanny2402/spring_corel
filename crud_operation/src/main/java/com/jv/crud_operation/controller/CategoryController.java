@@ -92,7 +92,7 @@ public class CategoryController {
 	@Operation(summary = "Hello Brother this is function to resoter!", description = "Hi Restore!", responses = {
 			@ApiResponse(responseCode = "200", description = "Success Man", content = @Content(schema = @Schema(implementation = CategoryResponse.class), mediaType = "application/json")) })
 	@PutMapping("/restore/{id}")
-	public ResponseEntity<BaseBodyResponse> restore(@PathVariable Long id,@RequestBody RestoerCategoryRequest req)
+	public ResponseEntity<BaseBodyResponse> restore(@PathVariable Long id,@Valid @RequestBody RestoerCategoryRequest req)
 			throws Exception {
 		CategoryEntity category = this.categoryService.restore(id,req);
 		return BaseBodyResponse.success(CategoryResponse.fromEntity(category), "Restored Success!");

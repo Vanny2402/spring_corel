@@ -1,14 +1,16 @@
 package com.jv.crud_operation.model.entity;
 
-import com.jv.crud_operation.model.entity.listener.CategoryEntityListener;
+import org.hibernate.annotations.SQLDelete;
+
 import com.jv.crud_operation.model.entity.response.infra.BaseSoftDeleteEntity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+@Entity
 @Table(name="skills")
-@EntityListeners(CategoryEntityListener.class)
+@SQLDelete(sql="Update skills SET deleted_at = NOW() where id=?")
 public class SkillEntity extends BaseSoftDeleteEntity<Long> {
 
 	

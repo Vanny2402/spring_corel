@@ -1,6 +1,6 @@
 package com.jv.crud_operation.model.entity.response.skill;
 
-import com.jv.crud_operation.model.entity.CategoryEntity;
+import com.jv.crud_operation.model.entity.SkillEntity;
 import com.jv.crud_operation.model.entity.response.infra.BaseResponse;
 
 public class SkillResponse extends BaseResponse {
@@ -20,7 +20,7 @@ public class SkillResponse extends BaseResponse {
 		this.description=description;
 	}
 	
-	public static SkillResponse fromEntity(CategoryEntity entity) {
+	public static SkillResponse fromEntity(SkillEntity entity) {
 		return new SkillResponse(entity.getName(),entity.getDescription());
 	}
 

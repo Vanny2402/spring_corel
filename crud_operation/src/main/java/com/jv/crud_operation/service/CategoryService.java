@@ -2,7 +2,6 @@ package com.jv.crud_operation.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +51,7 @@ public class CategoryService {
 
 	public CategoryEntity update(Long id, CategoryRequest request) throws NotFoundException {
 		// #1 To find if Category exist or not
-		CategoryEntity dataFilter = categoryRepository.findById(id)
+		CategoryEntity dataFilter = categoryRepository.findByIdAndDeletedAtIsNull(id)
 				.orElseThrow(() -> new NotFoundException("Category is not exsit"));
 		dataFilter.setName(request.getName() == null ? dataFilter.getName() : request.getName());
 		dataFilter.setDescription(
@@ -61,7 +60,7 @@ public class CategoryService {
 	}
 
 	public CategoryEntity findOne(Long id) throws NotFoundException {
-		return this.categoryRepository.findById(id)
+		return this.categoryRepository.findByIdAndDeletedAtIsNull(id)
 				.orElseThrow(() -> new NotFoundException("This is category is not exist"));
 	}
 
@@ -74,7 +73,8 @@ public class CategoryService {
 		return category;
 	}
 
-	public Page<CategoryEntity> findAll(int page, int limit, Boolean isPage, String sort, Map<String, String> reqParam){
+	public Page<CategoryEntity> findAll(int page, int limit, Boolean isPage, String sort,
+			Map<String, String> reqParam) {
 		List<Sort.Order> lsSort = new ArrayList<>();
 		for (String item : sort.split(",")) {
 			String[] str = item.split(":");
@@ -99,48 +99,22 @@ public class CategoryService {
 			List<Predicate> predicate = new ArrayList<>();
 			for (Map.Entry<String, String> entry : reqParam.entrySet()) {
 				if (entry.getKey().startsWith("q_")) {
-					
+
 					String qKey = entry.getKey().split("q_", 2)[1];
 					String qValue = entry.getValue() == null ? "" : entry.getValue();
 					predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(qKey).as(String.class)),
 							"%" + qValue.toUpperCase() + "%"));
 				}
-				
+
 			}
-			
-			if(predicate.size()==0) predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get("name").as(String.class)),"%"+""+"%"));
-			return criteriaBuilder.and(criteriaBuilder.isNull(root.get("deletedAt")),criteriaBuilder.or(predicate.toArray(Predicate[]:: new)));
+			if (predicate.size() == 0)
+				predicate.add(
+						criteriaBuilder.like(criteriaBuilder.upper(root.get("name").as(String.class)), "%" + "" + "%"));
+			return criteriaBuilder.and(criteriaBuilder.isNull(root.get("deletedAt")),
+					criteriaBuilder.or(predicate.toArray(Predicate[]::new)));
 //			return criteriaBuilder.or(predicate.toArray(Predicate[]::new));
 
 		}, pageable);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

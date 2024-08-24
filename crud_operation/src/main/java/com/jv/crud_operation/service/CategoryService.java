@@ -76,7 +76,7 @@ public class CategoryService {
 		return category;
 	}
 
-	public Page<CategoryEntity> findAll(int page, int limit, Boolean isPage, String sort,
+	public Page<CategoryEntity> findAll(int page, int limit, Boolean isPage, String sort,Boolean isTrash,
 			Map<String, String> reqParam) {
 		List<Sort.Order> lsSort = new ArrayList<>();
 		for (String item : sort.split(",")) {
@@ -113,7 +113,7 @@ public class CategoryService {
 			if (predicate.size() == 0)
 				predicate.add(
 						criteriaBuilder.like(criteriaBuilder.upper(root.get("name").as(String.class)), "%" + "" + "%"));
-			return criteriaBuilder.and(criteriaBuilder.isNull(root.get("deletedAt")),
+			return criteriaBuilder.and(isTrash ? criteriaBuilder.isNotNull(root.get("deletedAt")):criteriaBuilder.isNull(root.get("deletedAt")),
 					criteriaBuilder.or(predicate.toArray(Predicate[]::new)));
 //			return criteriaBuilder.or(predicate.toArray(Predicate[]::new));
 

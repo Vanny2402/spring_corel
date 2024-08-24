@@ -65,11 +65,12 @@ public class CategoryController {
 			@RequestParam(name = "limit", required = true,defaultValue = "3") int limit,
 			@RequestParam(name = "isPage", required = false, defaultValue = "true") Boolean isPage,
 			@RequestParam(name = "sort", required = false, defaultValue = "id:desc") String sort,
+			@RequestParam(name="isTrash",required =  false,defaultValue = "false") Boolean isTrash,
 			@RequestParam Map<String, String> reqParam_serch) throws Exception {
 //		List<CategoryResponse> category = this.categoryService.findAll(page, limit,Objects.equals(isPage,"true"),sort,reqParam).stream()
 //				.map(CategoryResponse::fromEntity).toList();
 		Page<BaseResponse> category = this.categoryService
-				.findAll(page, limit,isPage, sort, reqParam_serch).map(CategoryResponse::fromEntity);
+				.findAll(page, limit,isPage, sort,isTrash, reqParam_serch).map(CategoryResponse::fromEntity);
 		return BaseBodyResponse.success(category, "success");
 	}
 

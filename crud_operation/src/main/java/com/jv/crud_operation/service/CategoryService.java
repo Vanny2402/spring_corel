@@ -67,6 +67,23 @@ public class CategoryService {
 				.orElseThrow(() -> new NotFoundException("This is category is not exist"));
 	}
 
+	private CategoryEntity findOneWithSoftDeleted(Long id) throws Exception {
+		return this.categoryRepository.findById(id).orElseThrow(()-> new NotFoundException("Category not found!"));
+		
+	}
+	
+	public CategoryEntity restore(Long id) throws Exception{
+		//1.Get category from DB by id
+		CategoryEntity category=this.findOneWithSoftDeleted(id);
+		//2.remove deleted_at null value
+		category.setDeletedAt(null);
+		try {
+			
+			return this.categoryRepository.save(category);
+		} catch (Exception e) {
+			throw new  Exception(e);
+		}
+	}
 	public CategoryEntity delete(Long id) throws NotFoundException {
 		// #1 To find Category
 		CategoryEntity category = findOne(id);

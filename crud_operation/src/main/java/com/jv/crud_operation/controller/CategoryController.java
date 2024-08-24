@@ -88,4 +88,17 @@ public class CategoryController {
 		return ResponseEntity.ok(CategoryResponse.fromEntity(category));
 	}
 
+	@Operation(summary = "Hello Brother this is function to resoter!", description = "Hi Restore!", responses = {
+			@ApiResponse(responseCode = "200", description = "Success Man", content = @Content(schema = @Schema(implementation = CategoryResponse.class), mediaType = "application/json")) })
+	@PutMapping("/restore/{id}")
+	public ResponseEntity<BaseBodyResponse> restore(@PathVariable Long id)
+			throws Exception {
+		CategoryEntity category = this.categoryService.restore(id);
+		return BaseBodyResponse.success(CategoryResponse.fromEntity(category), "Restored Success!");
+	}
+	
+	
+	
+	
+	
 }

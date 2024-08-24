@@ -21,6 +21,7 @@ import com.jv.crud_operation.model.entity.response.category.CategoryResponse;
 import com.jv.crud_operation.model.entity.response.infra.BaseBodyResponse;
 import com.jv.crud_operation.model.entity.response.infra.BaseResponse;
 import com.jv.crud_operation.model.entity.reuest.CategoryRequest;
+import com.jv.crud_operation.model.entity.reuest.RestoerCategoryRequest;
 import com.jv.crud_operation.service.CategoryService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -91,9 +92,9 @@ public class CategoryController {
 	@Operation(summary = "Hello Brother this is function to resoter!", description = "Hi Restore!", responses = {
 			@ApiResponse(responseCode = "200", description = "Success Man", content = @Content(schema = @Schema(implementation = CategoryResponse.class), mediaType = "application/json")) })
 	@PutMapping("/restore/{id}")
-	public ResponseEntity<BaseBodyResponse> restore(@PathVariable Long id)
+	public ResponseEntity<BaseBodyResponse> restore(@PathVariable Long id,@RequestBody RestoerCategoryRequest req)
 			throws Exception {
-		CategoryEntity category = this.categoryService.restore(id);
+		CategoryEntity category = this.categoryService.restore(id,req);
 		return BaseBodyResponse.success(CategoryResponse.fromEntity(category), "Restored Success!");
 	}
 	

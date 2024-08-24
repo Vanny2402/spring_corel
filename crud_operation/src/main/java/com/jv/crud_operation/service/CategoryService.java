@@ -17,6 +17,7 @@ import com.jv.crud_operation.exception.BadRequestException;
 import com.jv.crud_operation.exception.NotFoundException;
 import com.jv.crud_operation.model.entity.CategoryEntity;
 import com.jv.crud_operation.model.entity.reuest.CategoryRequest;
+import com.jv.crud_operation.model.entity.reuest.RestoerCategoryRequest;
 import com.jv.crud_operation.repository.CategoryRepository;
 
 import jakarta.persistence.criteria.Predicate;
@@ -72,11 +73,15 @@ public class CategoryService {
 		
 	}
 	
-	public CategoryEntity restore(Long id) throws Exception{
+	public CategoryEntity restore(Long id,RestoerCategoryRequest request) throws Exception{
 		//1.Get category from DB by id
 		CategoryEntity category=this.findOneWithSoftDeleted(id);
+		//2.Check name from request if exist or not in DB
+		if(this.categoryRepository.existsByNameAndDeletedAtIsNull(request.getName()))
+			throw new AlreadyExistException("Name "+request.getName()+" already Exist!");
 		//2.remove deleted_at null value
 		category.setDeletedAt(null);
+		category.setName(request.getName());
 		try {
 			
 			return this.categoryRepository.save(category);

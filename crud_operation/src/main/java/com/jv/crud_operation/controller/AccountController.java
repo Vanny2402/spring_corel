@@ -59,7 +59,7 @@ public class AccountController {
 
 	@GetMapping("")
 	public ResponseEntity<BaseBodyResponse> findAll(
-			@RequestParam(name = "page", required = true, defaultValue = "1") int page,
+			@RequestParam(name = "pageNumber", required = true, defaultValue = "1") int page,
 			@RequestParam(name = "limit", required = true, defaultValue = "3") int limit,
 			@RequestParam(name = "isPage", required = false, defaultValue = "true") Boolean isPage,
 			@RequestParam(name = "sort", required = false, defaultValue = "id:desc") String sort,

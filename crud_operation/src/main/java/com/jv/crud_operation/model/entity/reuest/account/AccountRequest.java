@@ -12,7 +12,6 @@ public class AccountRequest implements Serializable {
 	public Double getBalance() {
 		return balance;
 	}
-
 	public void setBalance(Double balance) {
 		this.balance = balance;
 	}

@@ -1,0 +1,71 @@
+package com.jv.crud_operation.model.entity;
+
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jv.crud_operation.model.entity.response.infra.BaseEntity;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OrderBy;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="products")
+public class ProductEnitty extends BaseEntity<Long>{	
+	@Column(length = 50,nullable = false)
+	private String name;
+	
+	@Column(nullable = false)
+	private Double price;
+	
+	@Basic
+	private String description;
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY)
+	@JoinTable(name="product_tags",joinColumns =@JoinColumn(name="product_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name="tag_id",referencedColumnName = "id"))
+	@JsonIgnore
+	@OrderBy("tagName DESC")
+	private Set<TagEntity> tags;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getDescription() {
+		return description; 
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public Set<TagEntity> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<TagEntity> tags) {
+		this.tags = tags;
+	}
+
+
+
+}
